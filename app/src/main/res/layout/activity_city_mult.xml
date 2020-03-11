@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_city_mult"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qgyyzs.globalcosmetics.activity.CityMultActivity">
+
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        android:background="@color/main_color"
+        app:title="选择城市"
+        app:navigationIcon="?attr/homeAsUpIndicator" >
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:textSize="18sp"
+            android:text="完成"
+            android:textColor="@color/white"/>
+    </androidx.appcompat.widget.Toolbar>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_marginTop="0.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/shadow"
+        app:srlEnableLoadmore="false">
+
+        <ListView
+            android:id="@+id/city_mutl_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

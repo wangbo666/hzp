@@ -1,0 +1,129 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    defaultConfig {
+        applicationId "com.qgyyzs.globalcosmetics"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 7
+        versionName "1.1.3"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        vectorDrawables.useSupportLibrary = true
+        renderscriptTargetApi 26
+        renderscriptSupportModeEnabled true
+
+
+        ndk {
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64", 'mips', 'mips64', 'armeabi'
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+        dexOptions {
+            javaMaxHeapSize "4g"
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "525d131bdeeec295c7d32651", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+//    signingConfigs {
+//        release {
+//            storeFile file("C:/Users/Administrator/Desktop/huan/GlobalMedicine/hqyy0620.jks")
+//            storePassword "123456"
+//            keyAlias "huanqiu"
+//            keyPassword "123456"
+//            v2SigningEnabled false
+//        }
+//    }
+//    allprojects {
+//        gradle.projectsEvaluated {
+//            tasks.withType(JavaCompile) {
+//                options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//            }
+//        }
+//    }
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    /*view*/
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation files('libs/umeng-analytics-v6.1.0.jar')
+    implementation files('libs/SocialSDK_QQ_Simplify.jar')
+    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
+    implementation files('libs/jpush-android-3.1.0.jar')
+    implementation files('libs/jcore-android-1.1.8.jar')
+    /*RxAndroid*/
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    /*RxJava*/
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    /*Rx生命周期管理*/
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
+    /*网络请求框架*/
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.youth.banner:banner:1.4.9'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+//    api project(':uikit')
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.2'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    implementation 'com.github.czy1121:loadinglayout:1.0.1'
+    implementation 'com.github.mmin18:realtimeblurview:1.0.6'
+    implementation 'com.wang.avi:library:2.1.3'
+//    implementation project(':indexlib')
+    implementation 'me.leolin:ShortcutBadger:1.1.19@aar'
+    implementation 'com.jaikydota.imagespickers:imagespickers:1.0.6'
+    implementation 'com.bm.photoview:library:1.4.1'
+    //图片选择库
+//    implementation project(':badgenumberlibrary')
+    implementation project(':UpdateAppUtils')
+    implementation 'com.github.promeg:tinypinyin:1.0.0'
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+    implementation 'com.github.bumptech.glide:glide:4.2.0'
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.1'
+    implementation 'com.netease.nimlib:jsbridge:1.3.1'
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        android:background="@color/main_color"
+        app:title="提升排名"
+        app:navigationIcon="?attr/homeAsUpIndicator" />
+
+    <Button
+        android:id="@+id/product_btn"
+        style="@style/my_btn"
+        android:layout_marginTop="80dp"
+        android:text="提升产品排名"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:gravity="center"
+        android:textColor="@color/hint"
+        android:textSize="14sp"
+        android:layout_margin="10dp"
+        android:text="每次提升您帐号下发布时间最早的五个产品，免费会员一天可提升一次，付费会员每小时可提升一次"/>
+
+    <Button
+        android:id="@+id/company_btn"
+        style="@style/my_btn"
+        android:layout_marginTop="30dp"
+        android:text="提升企业排名"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:gravity="center"
+        android:textColor="@color/hint"
+        android:layout_margin="10dp"
+        android:textSize="14sp"
+        android:text="提升您的企业排名，每天一次"/>
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="1dp"
+    android:id="@+id/content"
+    android:background="@drawable/shape_adapter_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f8f8f8"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/company_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@mipmap/medicin_defult" />
+            <TextView
+                android:id="@+id/company_name"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/item_title"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/company_product"
+                android:textSize="12sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="产品：脚轻松系列产品"
+                android:textColor="@color/color_grey_666666"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/company_youshi"
+                android:textSize="12sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="优势：试用以后，再合作"
+                android:textColor="@color/color_grey_666666"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/index_vip"/>
+    </RelativeLayout>
+
+</LinearLayout>

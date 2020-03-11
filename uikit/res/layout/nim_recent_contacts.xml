@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:srlDragRate="0.6"
+    app:srlEnableNestedScrolling="false"
+    app:srlEnablePureScrollMode="true">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            style="@style/AppTheme.AppBarOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:elevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:scrollbars="none"
+                app:layout_scrollFlags="scroll">
+
+                <RelativeLayout
+                    android:id="@+id/rl_mess"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <ImageView
+                        android:id="@+id/img3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_intention" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/img3"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:text="意向留言"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:paddingTop="5dp"
+                            android:text="最新客户留言在这儿"
+                            android:textColor="#FE9A3C" />
+                    </LinearLayout>
+
+                    <com.qgyyzs.globalcosmetics.uikit.common.ui.drop.DropFake
+                        android:id="@+id/mTvMsgNum"
+                        android:layout_width="28dip"
+                        android:layout_height="28dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="6dip"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <View
+                    style="@style/horizontal_light_thin_divider"
+                    android:layout_marginLeft="70dip" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_laifang"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <ImageView
+                        android:id="@+id/img1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_me_visit" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/img1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:text="最近来访"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:paddingTop="5dp"
+                            android:text="最近访问您产品的用户在这儿"
+                            android:textColor="#FE9A3C" />
+                    </LinearLayout>
+
+                    <com.qgyyzs.globalcosmetics.uikit.common.ui.drop.DropFake
+                        android:id="@+id/mTvVisNum"
+                        android:layout_width="28dip"
+                        android:layout_height="28dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="6dip"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <View
+                    style="@style/horizontal_light_thin_divider"
+                    android:layout_marginLeft="70dip" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_team"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <ImageView
+                        android:id="@+id/img5"
+                        android:layout_width="41dp"
+                        android:layout_height="41dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/nim_avatar_group" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/img5"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:text="群聊"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:paddingTop="5dp"
+                            android:text="加入医药群更快找到需要的产品"
+                            android:textColor="#FE9A3C" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    style="@style/horizontal_light_thin_divider"
+                    android:layout_marginLeft="70dip" />
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <TextView
+            android:id="@+id/message_list_empty_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:drawableTop="@drawable/nim_messages_list_empty_bg"
+            android:gravity="center"
+            android:text="还没有会话，在通讯录中找个人聊聊吧！"
+            android:visibility="gone" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

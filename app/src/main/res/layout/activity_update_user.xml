@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_update_user"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/shadow"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="@color/main_color"/>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnablePureScrollMode="true"
+        app:srlEnableLoadmore="true"
+        app:srlDragRate="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.qgyyzs.globalcosmetics.customview.ClearEditText
+                android:id="@+id/info_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_item_height"
+                android:layout_margin="10dp"
+                android:paddingLeft="5dp"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/tishi_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/num_tv"
+                    android:text="还可以输入"/>
+
+                <TextView
+                    android:id="@+id/num_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/text1"
+                    android:text="20"
+                    android:textColor="@color/main_color"/>
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="个字"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/ok_btn"
+                style="@style/my_btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="确定"/>
+
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

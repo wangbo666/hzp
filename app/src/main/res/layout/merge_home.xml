@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/main_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:id="@+id/home_radio"
+            style="@style/radio"
+            android:checked="true"
+            android:drawableTop="@drawable/index_home"
+            android:text="全球医药"/>
+
+        <RadioButton
+            android:id="@+id/news_radio"
+            style="@style/radio"
+            android:drawableTop="@drawable/index_news"
+            android:text="消息"/>
+
+        <!--<RedioButton
+            android:src="@mipmap/icon_free"
+            android:layout_weight="0.7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>-->
+
+
+        <ImageView
+            android:id="@+id/middle_radio"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/index_middle"
+            android:paddingLeft="3dp"/>
+
+        <RadioButton
+            android:id="@+id/buy_radio"
+            style="@style/radio"
+            android:drawableTop="@drawable/index_buy"
+            android:text="求购"/>
+
+        <RadioButton
+            android:id="@+id/me_radio"
+            style="@style/radio"
+            android:drawableTop="@drawable/index_me"
+            android:text="我的"/>
+    </RadioGroup>
+</RelativeLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/select"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="选择照片"
+        android:textColor="@color/main_color"
+        android:textSize="18sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999"/>
+
+    <TextView
+        android:id="@+id/pic_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="相册"
+        android:textColor="@color/textUp"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999"/>
+
+    <TextView
+        android:id="@+id/photo_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="拍照"
+        android:textColor="@color/textUp"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999"/>
+
+    <TextView
+        android:id="@+id/cancel_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/textUp"
+        android:textSize="16sp"/>
+</LinearLayout>

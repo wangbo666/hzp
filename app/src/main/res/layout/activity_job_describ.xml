@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_job_describ"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.qgyyzs.globalcosmetics.activity.JobDescribActivity">
+
+    <include layout="@layout/title_bar"/>
+
+    <EditText
+        android:id="@+id/job_edit"
+        style="@style/edit"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        android:hint="填写职位描述"
+        android:gravity="left"
+        android:padding="10dp"
+        android:textSize="13sp"/>
+
+</LinearLayout>

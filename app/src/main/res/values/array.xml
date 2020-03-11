@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dailiArrays">
+        <item>请选择留言内容</item>
+        <item>请寄给我详细资料</item>
+        <item>市场保证金和代理价是多少</item>
+        <item>零售价是多少</item>
+        <item>合作政策是什么</item>
+        <item>我想代理，请速联系我</item>
+    </string-array>
+    <string-array name="quanxianArrays">
+        <item>请选择查看权限</item>
+        <item>让所有企业查看我的电话</item>
+        <item>仅让该企业查看我的电话</item>
+    </string-array>
+    <string-array name="jinkounArrays">
+        <item>请选择进口类型</item>
+        <item>国产</item>
+        <item>进口</item>
+    </string-array>
+</resources>

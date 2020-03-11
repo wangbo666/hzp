@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        tools:targetApi="lollipop"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="6dp"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/item_userphoto_img"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:scaleType="centerInside"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_user_defult" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/item_proxy_name"
+                        style="@style/item_text_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="暂未设置"
+                        android:textSize="14sp" />
+
+
+                    <TextView
+                        android:id="@+id/item_type_tv"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="暂未设置"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/item_subject_tv"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="暂未设置"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/item_address_tv"
+                        style="@style/item_s_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:drawableLeft="@mipmap/local_gray"
+                        android:drawablePadding="5dp"
+                        android:text="暂未设置"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/item_lasttime_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_guanzhu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/shadow" />
+
+                <TextView
+                    android:id="@+id/guanzhu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:text="关注："
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_depart_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/guanzhu"
+                    android:text="暂未设置"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

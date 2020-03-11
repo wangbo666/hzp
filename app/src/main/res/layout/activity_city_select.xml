@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_city_select"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.qgyyzs.globalcosmetics.activity.CitySelectActivity">
+
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        android:background="@color/main_color"
+        app:title="选择城市"
+        app:navigationIcon="?attr/homeAsUpIndicator" />
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_marginTop="0.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/shadow"
+        app:srlEnableLoadmore="false">
+
+    <ListView
+        android:id="@+id/city_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

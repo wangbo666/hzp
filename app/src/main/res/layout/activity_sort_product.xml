@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.qgyyzs.globalcosmetics.activity.SortProductActivity">
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        android:background="@color/main_color"
+        app:title="产品分类"
+        app:navigationIcon="?attr/homeAsUpIndicator" >
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:textSize="18sp"
+            android:text="确定"
+            android:textColor="@color/white"/>
+    </androidx.appcompat.widget.Toolbar>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:srlPrimaryColor="@color/colorPrimary"
+        app:srlAccentColor="@android:color/white"
+        app:srlEnableHeaderTranslationContent="false"
+        app:srlEnablePreviewInEditMode="false"
+        app:srlEnableNestedScrolling="true">
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"/>
+        <LinearLayout
+            android:id="@+id/mLinearSort"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:overScrollMode="never"
+                android:clipToPadding="false"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="@color/shadow"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView2"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:scrollbars="vertical"
+                android:overScrollMode="never"
+                android:clipToPadding="false"
+                android:background="@color/shadow_f"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

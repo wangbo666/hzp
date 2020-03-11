@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_update_pwd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qgyyzs.globalcosmetics.activity.UpdatePwdActivity">
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="@color/main_color"
+        app:title="修改密码"/>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/shadow"
+        app:srlEnablePureScrollMode="true"
+        app:srlEnableLoadmore="true"
+        app:srlDragRate="1">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="旧密码"
+                            android:textColor="@color/textUp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="(*必填)"
+                            android:textColor="@color/red"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <com.qgyyzs.globalcosmetics.customview.ClearEditText
+                        android:id="@+id/oldpwd_edit"
+                        android:layout_width="match_parent"
+                        android:textColorHint="@color/hint"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@null"
+                        android:hint="请填写旧密码"
+                        android:inputType="textPassword"
+                        android:textSize="15sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/shadow"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="新密码"
+                            android:textColor="@color/textUp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="(*必填)"
+                            android:textColor="@color/red"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <com.qgyyzs.globalcosmetics.customview.ClearEditText
+                        android:id="@+id/newpwd_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:textColorHint="@color/hint"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@null"
+                        android:digits="@string/filter_vcode"
+                        android:hint="请填写新密码(英文+数字8-16位)"
+                        android:inputType="textPassword"
+                        android:textSize="15sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/shadow"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="确认新密码"
+                            android:textColor="@color/textUp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="(*必填)"
+                            android:textColor="@color/red"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <com.qgyyzs.globalcosmetics.customview.ClearEditText
+                        android:id="@+id/new2pwd_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColorHint="@color/hint"
+                        android:digits="@string/filter_vcode"
+                        android:background="@null"
+                        android:hint="确认新密码"
+                        android:inputType="textPassword"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/shadow"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/code_edit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:hint="请输入验证码"
+                        android:textColorHint="@color/hint"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/getcode_text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="发送验证码"
+                        android:textColor="@color/main_color"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="发送验证码给手机186****1234"
+                    android:textColor="@color/s_text"/>
+
+
+                <Button
+                    android:id="@+id/ok_btn"
+                    style="@style/my_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="确认修改"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

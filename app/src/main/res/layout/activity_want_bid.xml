@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_want_bid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.qgyyzs.globalcosmetics.activity.WantBidActivity">
+
+    <include layout="@layout/title_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:textSize="12sp"
+            android:id="@+id/content_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_white_shape"
+            android:gravity="top"
+            android:hint="填写投标内容"
+            android:padding="5dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/send_bid_tv"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/fliter_bg_p"
+        android:gravity="center"
+        android:text="发送投标信息"
+        android:textColor="@color/white"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/bidnum_tv"
+            android:gravity="center"
+            android:text="今日还有"/>
+
+        <TextView
+            android:id="@+id/bidnum_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="3次"
+            android:textColor="@color/main_color"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/bidnum_tv"
+            android:gravity="center"
+            android:text="免费招标"/>
+    </RelativeLayout>
+
+</LinearLayout>

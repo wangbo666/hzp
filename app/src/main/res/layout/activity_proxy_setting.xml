@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroudDark"
+    tools:context="com.qgyyzs.globalcosmetics.activity.ProxySettingActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="@color/main_color"
+        app:title="身份信息设置"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        app:srlEnablePureScrollMode="true"
+        app:srlEnableLoadmore="true"
+        app:srlDragRate="1">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/bar"
+                    android:gravity="center"
+                    android:text="完善代理商属性，业务轻松找上门！"
+                    android:textColor="@color/main_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="* "
+                        android:textColor="@color/red"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="身份类型(可多选)"/>
+                    <CheckBox
+                        android:id="@+id/daili_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="代理商"/>
+                    <CheckBox
+                        android:id="@+id/changjia_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="厂商"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/shadow"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="* "
+                        android:textColor="@color/red"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:text="产品分类(可多选)"/>
+
+                </LinearLayout>
+                <com.qgyyzs.globalcosmetics.customview.MyGridView
+                    android:id="@+id/proxy_type_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="4"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/shadow"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="* "
+                        android:textColor="@color/red"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:text="我的渠道(可多选)"/>
+
+                </LinearLayout>
+
+                <com.qgyyzs.globalcosmetics.customview.MyGridView
+                    android:id="@+id/channel_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="4"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/shadow"/>
+
+
+                <RelativeLayout
+                    android:id="@+id/my_place_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+                    <TextView
+                        android:id="@+id/tx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="* "
+                        android:textColor="@color/red"/>
+                    <TextView
+                        android:layout_toRightOf="@id/tx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="代理区域"/>
+
+                    <TextView
+                        android:id="@+id/my_place_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/ic_right_black"
+                        android:gravity="center"
+                        android:textSize="13sp"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/depart_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/aa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="我熟悉的科室"/>
+
+                    <TextView
+                        android:id="@+id/depart_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="100dp"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/ic_right_black"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:text="未设置"
+                        android:textSize="13sp"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+            </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    <Button
+        android:id="@+id/keep_tv"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/fliter_bg_p"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white"/>
+</LinearLayout>

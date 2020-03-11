@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_user_more"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qgyyzs.globalcosmetics.activity.UserMoreActivity">
+
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        app:title="更多"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="@color/main_color"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="常驻地"
+            android:textColor="@color/item_title1"/>
+
+        <TextView
+            android:id="@+id/user_place"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="未设置"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/line_x"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="联系电话"
+            android:textColor="@color/item_title1"/>
+
+        <TextView
+            android:id="@+id/user_phone"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="未公开"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/line_x"/>
+
+    <LinearLayout
+        android:id="@+id/other_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/me_item_height"
+            android:layout_marginLeft="20dp">
+
+            <ImageView
+                android:id="@+id/isopen_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/open_selector"/>
+
+            <TextView
+                android:id="@+id/open_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="黑名单"
+                android:textColor="@color/item_title1"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/line_x"/>
+        <Button
+            android:id="@+id/del_btn"
+            style="@style/my_btn"
+            android:text="删除好友"/>
+    </LinearLayout>
+
+</LinearLayout>

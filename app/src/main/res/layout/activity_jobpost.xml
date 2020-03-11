@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_jobpost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.qgyyzs.globalcosmetics.activity.JobpostActivity">
+    <androidx.appcompat.widget.Toolbar style="@style/AppTheme.Toolbar"
+        android:id="@+id/toolbar"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="@color/main_color"
+        app:title="发布招聘"/>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:srlEnablePureScrollMode="true"
+        app:srlEnableLoadmore="true"
+        app:srlDragRate="1">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="公司名称："/>
+
+                    <EditText
+                        android:id="@+id/company_name_edit"
+                        style="@style/edit_common"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_01"
+                        android:hint="请填写公司名称"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:id="@+id/type_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="岗位类型："/>
+
+                    <TextView
+                        android:id="@+id/type_tv"
+                        style="@style/edit_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_02"
+                        android:gravity="center_vertical"
+                        android:hint="请填选择岗位类型"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/arrow"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:id="@+id/place_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="工作地区："/>
+
+                    <TextView
+                        android:id="@+id/place_tv"
+                        style="@style/edit_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_03"
+                        android:gravity="center_vertical"
+                        android:hint="请填选择工作地区"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/arrow"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="岗位名称："/>
+
+                    <EditText
+                        android:id="@+id/gangwei_edit"
+                        style="@style/edit_common"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_04"
+                        android:hint="请填写岗位名称"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:id="@+id/jingyan_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="工作经验："/>
+
+                    <TextView
+                        android:id="@+id/jingyan_tv"
+                        style="@style/edit_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_05"
+                        android:gravity="center_vertical"
+                        android:hint="请填选择工作经验"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/arrow"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:id="@+id/xinzi_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_06"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="薪资范围："/>
+
+                    <TextView
+                        android:id="@+id/xinzi_tv"
+                        style="@style/edit_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_06"
+                        android:gravity="center_vertical"
+                        android:hint="请填选择薪资待遇"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/arrow"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:id="@+id/xueli_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_07"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="岗位学历："/>
+
+                    <TextView
+                        android:id="@+id/xueli_tv"
+                        style="@style/edit_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_07"
+                        android:gravity="center_vertical"
+                        android:hint="请填选择学历"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/arrow"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_08"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="联系邮箱："/>
+
+                    <EditText
+                        android:id="@+id/email_edit"
+                        style="@style/edit_common"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/tv_08"
+                        android:hint="请填写邮箱"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <RelativeLayout
+                    android:id="@+id/describ_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/me_item_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_09"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="职位描述："/>
+
+                    <TextView
+                        android:id="@+id/describ_tv"
+                        style="@style/edit_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@+id/tv_09"
+                        android:gravity="center_vertical"
+                        android:hint="请填写职位描述"
+                        android:lines="1"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/arrow"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/shadow"/>
+
+                <Button
+                    android:id="@+id/jobpost_btn"
+                    style="@style/my_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:text="发布"/>
+            </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_search_product"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top_1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#F5F5F5">
+
+        <EditText
+            android:id="@+id/search_edit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/cancel_tv"
+            android:background="@drawable/text_shape_gray"
+            android:drawableLeft="@mipmap/icon_search_gray"
+            android:drawablePadding="5dp"
+            android:hint="搜索产品或公司名"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:paddingLeft="8dp"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/cancel_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/main_color"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/jilu_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/jilu_tv"
+                android:textSize="@dimen/sp_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="历史记录"/>
+
+
+            <ListView
+                android:id="@+id/hostory_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/clear_hostory"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/ll_1"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:textSize="@dimen/sp_14"
+            android:background="@drawable/edit_white_shape"
+            android:gravity="center"
+            android:text="清除记录"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

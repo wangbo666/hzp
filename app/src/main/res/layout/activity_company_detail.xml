@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_company_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.qgyyzs.globalcosmetics.activity.CompanyDetailActivity">
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/title_bar"/>
+
+    <WebView
+        android:id="@+id/company_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/send_msg_tv"
+        android:layout_below="@+id/top"
+        />
+
+    <TextView
+        android:id="@+id/send_msg_tv"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/my_btn"
+        android:gravity="center"
+        android:text="关注"
+        android:textColor="@color/white"/>
+</RelativeLayout>

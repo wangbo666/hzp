@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/shadow"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="您好，请留下您的代理信息，方便招商经理联系您"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="代理内容："/>
+    <Spinner
+        android:id="@+id/content_spinner"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:layout_height="match_parent"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shadow"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="查看权限："/>
+        <Spinner
+            android:id="@+id/quanxian_spinner"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/place_rl"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="代理区域："/>
+
+        <TextView
+            android:id="@+id/place_tv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/item_title"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/ic_right_black"
+            android:gravity="center_vertical|left"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shadow"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="联系姓名：" />
+
+        <EditText
+            android:id="@+id/name_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:textColor="@color/item_title"
+            android:hint="请输入联系人姓名"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shadow"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="联系电话：" />
+
+        <EditText
+            android:id="@+id/phone_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:inputType="phone"
+            android:layout_weight="1"
+            android:background="@null"
+            android:textColor="@color/item_title"
+            android:hint="请输入联系电话"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/fliter_reset_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/text_shape_gray"
+            android:text="取消"/>
+
+        <Button
+            android:id="@+id/fliter_ok_btn"
+            android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/my_btn"
+            android:text="确定"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

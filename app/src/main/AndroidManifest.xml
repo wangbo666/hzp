@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto"
+    package="com.qgyyzs.globalcosmetics"
+    android:versionCode="7"
+    android:versionName="1.1.3">
+
+    <uses-sdk
+        tools:overrideLibrary="com.github.czy1121.loadinglayout"/>
+    <permission
+        android:name="com.qgyyzs.globalcosmetics.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <uses-permission android:name="com.qgyyzs.globalcosmetics.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!--&lt;!&ndash; 这个权限用于进行网络定位 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+    <!--&lt;!&ndash; 这个权限用于访问GPS定位 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 多媒体相关 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 外置存储存取权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <supports-screens android:anyDensity="true" />
+
+    <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
+    <permission
+        android:name="com.qgyyzs.globalcosmetics.permission.RECEIVE_MSG"
+        android:protectionLevel="signature" />
+    <!-- 小米推送 -->
+    <permission
+        android:name="com.qgyyzs.globalcosmetics.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.qgyyzs.globalcosmetics.permission.MIPUSH_RECEIVE" />
+
+    <application
+        android:name="com.qgyyzs.globalcosmetics.application.MyApplication"
+        android:icon="@mipmap/ic_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="huanqiuhuazhuangpin" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="com.qgyyzs.globalcosmetics.service.UpdateService" android:enabled="true"/>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.qgyyzs.globalcosmetics.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <meta-data
+            android:name="com.netease.nim.appKey"
+            android:value="fa8bac2e9a3aa09884af2928a7bdcf27" />
+
+        <service android:name="com.qgyyzs.globalcosmetics.service.BadgeIntentService"/>
+
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="jpush.testAction" />
+                <category android:name="jpush.testCategory" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.nim.activity.AddContactActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MyInfoActivity"
+            android:launchMode="singleTask"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProxyInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ChildAccountListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ChildAccountAreaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProductAreaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.UpdateRemakeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.FeedBackActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.CompanyCenterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.RecruitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.JobpostActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MedicalNewsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProxyLibraryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.RegisterSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.BidActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProxySettingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.PublishProxyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MyRecruitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.SortProductActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.PublishProductActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.UpdatePwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.UpdateUserActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProvinceSelectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.CitySelectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.UpdatePhoneActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.KeshiSelectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProductSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.LinkListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProductPolicyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MedicineDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MyProductListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.UserDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.WebBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ForgetPwdActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5a69342df43e48325c000268" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="main" />
+
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MyProxyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProvinceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProductImgsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.JobDescribActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.CityMultActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.FreshActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.JobDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.HomeSearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.SelectJobtypeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ChatUserdetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.FriendProductActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+                android:name="com.qgyyzs.globalcosmetics.activity.UpdatePwActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.PhotoBrowserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Animation.Dialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.UserMoreActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.UserKehuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ResentVisitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent101455515" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MyGuanzhuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ChildAccountAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MyFriendsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.IntentionMsgActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProductTypeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.IntentionMsgDetialActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.CompanyDetialActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.MyCollectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ProductLibraryActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.ZizhiPostActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.activity.SearchActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".nim.main.activity.NoDisturbActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name=".nim.contact.activity.AddFriendActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name=".nim.contact.activity.UserProfileActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name=".nim.contact.activity.UserProfileSettingActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name=".nim.contact.activity.UserProfileEditItemActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name=".nim.contact.activity.BlackListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <!-- 文件管理器 -->
+        <activity
+            android:name=".nim.file.browser.FileBrowserActivity"
+            android:configChanges="orientation"
+            android:label="@string/file_browser"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name=".nim.main.activity.SystemMessageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".nim.main.activity.CustomNotificationActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".nim.session.activity.MessageHistoryActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".nim.session.activity.MessageInfoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name=".nim.team.activity.AdvancedTeamSearchActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name=".nim.team.activity.AdvancedTeamJoinActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name=".nim.main.activity.TeamListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <!-- 全局搜索 -->
+        <activity
+            android:name=".nim.main.activity.GlobalSearchActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/global_search_bg"
+            android:windowSoftInputMode="stateUnspecified" />
+
+        <activity
+            android:name=".nim.main.activity.GlobalSearchDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".nim.main.activity.GlobalSearchDetailActivity2"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 查看阅后即焚 -->
+        <activity
+            android:name=".nim.session.activity.WatchSnapChatPictureActivity"
+            android:configChanges="keyboardHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 下载文件 -->
+        <activity
+            android:name=".nim.session.activity.FileDownloadActivity"
+            android:configChanges="keyboardHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 消息历史搜索 -->
+        <activity
+            android:name=".nim.session.search.SearchMessageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/global_search_bg"
+            android:windowSoftInputMode="adjustPan|stateUnspecified" />
+
+        <activity
+            android:name=".nim.session.search.DisplayMessageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name=".nim.jsbridge.JsBridgeActivity"
+            android:label="@string/js_bridge"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <!-- 机器人 -->
+        <activity
+            android:name=".nim.main.activity.RobotListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 已读回执 -->
+        <activity
+            android:name=".nim.session.activity.SendAckMsgActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 已读回执详情 -->
+        <activity
+            android:name=".nim.session.activity.AckMsgInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".nim.contact.activity.RobotProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- 声明云信后台服务 -->
+        <service
+            android:name="com.netease.nimlib.service.NimService"
+            android:process=":core" />
+
+        <!-- 运行后台辅助服务 -->
+        <service
+            android:name="com.netease.nimlib.service.NimService$Aux"
+            android:process=":core" />
+
+        <!-- 声明云信后台辅助服务 -->
+        <service
+            android:name="com.netease.nimlib.job.NIMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":core" />
+
+        <!-- 云信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录 -->
+        <receiver
+            android:name="com.netease.nimlib.service.NimReceiver"
+            android:exported="false"
+            android:process=":core">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 云信进程间通信receiver -->
+        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
+
+        <!-- 云信进程间通信service -->
+        <service android:name="com.netease.nimlib.service.ResponseService" />
+
+        <!-- 云信进程间通信provider -->
+        <!-- android:authorities="{包名}.ipc.provider", 请将com.qgyyzs.globalcosmetics替换为自己的包名 -->
+        <provider
+            android:name="com.netease.nimlib.ipc.NIMContentProvider"
+            android:authorities="com.qgyyzs.globalcosmetics.ipc.provider"
+            android:exported="false"
+            android:process=":core" />
+
+        <!-- 申明自定义通知的广播接收器，第三方APP集成时，action中的com.netease.nim.demo请替换为自己的包名 -->
+        <!-- 需要权限申明 <uses-permission android:name="com.netease.nim.demo.permission.RECEIVE_MSG"/> -->
+        <receiver
+            android:name="com.qgyyzs.globalcosmetics.nim.receiver.CustomNotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.qgyyzs.globalcosmetics.ACTION.RECEIVE_CUSTOM_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 小米推送配置 -->
+        <service
+            android:name="com.xiaomi.push.service.XMJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":mixpush" />
+
+        <service
+            android:name="com.xiaomi.push.service.XMPushService"
+            android:enabled="true"
+            android:process=":mixpush" />
+
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.PingReceiver"
+            android:exported="false"
+            android:process=":mixpush">
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true" />
+
+        <receiver
+            android:name="com.netease.nimlib.mixpush.mi.MiPushReceiver"
+            android:exported="true">
+            <intent-filter android:priority="0x7fffffff">
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.qgyyzs.globalcosmetics.uikit.common.media.picker.model.GenericFileProvider"
+            android:authorities="${applicationId}.generic.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- 会话窗口 -->
+        <!-- UI组件中包含了语音选文字功能，该界面是全屏显示，为了视觉上的美观，该界面主题ActionBar使用Overlay模式。
+             如果开发者不需要该功能或效果，使用普通主题即可。 同时，还需要将message_activity.xml这个layout中的根节点的paddingTop去掉。 -->
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.session.activity.P2PMessageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.session.activity.TeamMessageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!-- 群聊 -->
+
+        <!-- 联系人选择器 -->
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.contact.selector.activity.ContactSelectActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/contact_selector"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <!-- @ 选择器 -->
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.ait.selector.AitContactSelectorActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 照片选择 -->
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.common.media.picker.activity.PickImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.common.media.picker.activity.CropImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.common.media.picker.activity.PickerAlbumActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.common.media.picker.activity.PickerAlbumPreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.common.media.picker.activity.PreviewImageFromLocalActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.common.media.picker.activity.PreviewImageFromCameraActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/input_panel_take"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!-- 视频 -->
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.session.activity.CaptureVideoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.session.activity.WatchVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/video_play"
+            android:theme="@style/DarkTheme" />
+
+        <!-- 查看大图 -->
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.session.activity.WatchMessagePictureActivity"
+            android:configChanges="keyboardHidden"
+            android:theme="@style/DarkTheme" />
+
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.session.activity.WatchPicAndVideoMenuActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.AdvancedTeamInfoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.NormalTeamInfoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.AdvancedTeamAnnounceActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.AdvancedTeamCreateAnnounceActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.AdvancedTeamMemberActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.AdvancedTeamMemberInfoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.AdvancedTeamNicknameActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.qgyyzs.globalcosmetics.uikit.business.team.activity.TeamPropertySettingActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!--华为推送配置-->
+
+        <!--<meta-data-->
+        <!--android:name="com.huawei.hms.client.appid"-->
+        <!--android:value="100006871" />-->
+
+        <!--<provider-->
+        <!--android:name="com.huawei.hms.update.provider.UpdateProvider"-->
+        <!--android:authorities="com.netease.nim.demo.hms.update.provider"-->
+        <!--android:exported="false"-->
+        <!--android:grantUriPermissions="true" />-->
+
+        <!-- 第三方相关 :接收Push消息（注册、Push消息、Push连接状态）广播 -->
+        <!--<receiver android:name="com.netease.nimlib.mixpush.hw.HWPushReceiver">-->
+        <!--<intent-filter android:priority="0x7fffffff">-->
+        <!--&lt;!&ndash; 必须,用于接收token &ndash;&gt;-->
+        <!--<action android:name="com.huawei.android.push.intent.REGISTRATION" />-->
+        <!--&lt;!&ndash; 必须，用于接收消息 &ndash;&gt;-->
+        <!--<action android:name="com.huawei.android.push.intent.RECEIVE" />-->
+        <!--&lt;!&ndash; 可选，用于点击通知栏或通知栏上的按钮后触发onEvent回调 &ndash;&gt;-->
+        <!--<action android:name="com.huawei.android.push.intent.CLICK" />-->
+        <!--&lt;!&ndash; 可选，查看push通道是否连接，不查看则不需要 &ndash;&gt;-->
+        <!--<action android:name="com.huawei.intent.action.PUSH_STATE" />-->
+        <!--</intent-filter>-->
+        <!--<meta-data-->
+        <!--android:name="CS_cloud_ablitity"-->
+        <!--android:value="successRateAnalytics" />-->
+        <!--</receiver>-->
+
+        <!--<receiver android:name="com.huawei.hms.support.api.push.PushEventReceiver">-->
+        <!--<intent-filter>-->
+        <!--&lt;!&ndash; 接收通道发来的通知栏消息，兼容老版本Push &ndash;&gt;-->
+        <!--<action android:name="com.huawei.intent.action.PUSH" />-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<activity-->
+        <!--android:name="cn.jpush.android.ui.PopWinActivity"-->
+        <!--android:theme="@style/MyDialogStyle"-->
+        <!--android:exported="false">-->
+        <!--</activity>-->
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.qgyyzs.globalcosmetics" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":mult"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+        <!-- since 3.0.9 Required SDK 核心功能-->
+        <provider
+            android:authorities="com.qgyyzs.globalcosmetics.DataProvider"
+            android:name="cn.jpush.android.service.DataProvider"
+            android:exported="false"
+            />
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.qgyyzs.globalcosmetics" />
+            </intent-filter>
+
+        </service>
+        <!-- since 3.1.0 Required SDK 核心功能-->
+        <provider
+            android:authorities="com.qgyyzs.globalcosmetics.DownloadProvider"
+            android:name="cn.jpush.android.service.DownloadProvider"
+            android:exported="true"
+            />
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="com.qgyyzs.globalcosmetics" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="com.qgyyzs.globalcosmetics" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="com.qgyyzs.globalcosmetics.jpush.MyReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <!--Required 用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!--Required 用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!--Required 用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!--Required 用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/><!--开机广播-->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/><!--网络状态改变广播-->
+                <category android:name="com.qgyyzs.globalcosmetics" />
+            </intent-filter>
+        </receiver>
+
+        <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调-->
+        <receiver android:name="com.qgyyzs.globalcosmetics.jpush.MyJPushMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.qgyyzs.globalcosmetics"></category>
+            </intent-filter>
+        </receiver>
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="014060a5942f9fce01df7352" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+    </application>
+
+</manifest>

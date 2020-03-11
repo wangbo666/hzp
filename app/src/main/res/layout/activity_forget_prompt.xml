@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_forget_prompt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.qgyyzs.globalcosmetics.activity.ForgetPromptActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:background="@color/main_color">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="忘记密码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_textsize"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="恭喜你，密码重置成功！"
+        android:textColor="@color/text_lv"/>
+
+    <Button
+        android:id="@+id/login_btn"
+        style="@style/my_btn"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:text="马上登录"/>
+</LinearLayout>

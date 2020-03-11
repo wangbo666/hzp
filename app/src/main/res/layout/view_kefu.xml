@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/mTvtishi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textSize="14sp"
+        android:textColor="@color/item_title"
+        android:gravity="center"
+        android:text="服务时间周一至周五 8:30-17:30"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shadow"/>
+    <TextView
+        android:id="@+id/tv_phone1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textSize="16sp"
+        android:textColor="@color/main_color"
+        android:gravity="center"
+        android:text="服务时间周一至周五 8:30-17:30"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shadow"/>
+        <TextView
+            android:id="@+id/tv_phone2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:textColor="@color/main_color"
+            android:gravity="center"
+            android:text="服务时间周一至周五 8:30-17:30"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shadow"/>
+        <TextView
+            android:id="@+id/tv_phone3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:textColor="@color/main_color"
+            android:gravity="center"
+            android:text="服务时间周一至周五 8:30-17:30"/>
+
+    </LinearLayout>
+</LinearLayout>

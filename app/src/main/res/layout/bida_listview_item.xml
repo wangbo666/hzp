@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_name_tv"
+            style="@style/item_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="灭菌注射用水"/>
+
+        <TextView
+            android:id="@+id/arrow"
+            android:textColor="@color/red"
+            android:text="招商中"
+            android:gravity="center"
+            android:drawablePadding="3dp"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableRight="@mipmap/ic_right_black"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/item_spec_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="规格：1ml:50mg"
+            android:textSize="12sp"/>
+
+
+        <TextView
+            android:id="@+id/type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/item_price_tv"
+            android:text="中标价："
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/item_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="0.07"
+            android:textColor="@color/red"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/item_agent_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="剂型：冻干粉针剂"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/item_area_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text=""
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_vender_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="厂家：山东方明药业集团股份有限公司"
+        android:textSize="12sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/shadow"/>
+</LinearLayout>

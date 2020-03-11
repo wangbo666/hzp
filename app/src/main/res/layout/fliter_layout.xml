@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="产品分类"/>
+
+            <com.qgyyzs.globalcosmetics.customview.MyGridView
+                android:id="@+id/fliter1_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/top"
+                android:horizontalSpacing="1dp"
+                android:numColumns="5"/>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/fliter1_gridview"
+                android:background="@color/shadow"/>
+
+            <TextView
+                android:id="@+id/top2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="适应科室"/>
+
+            <com.qgyyzs.globalcosmetics.customview.MyGridView
+                android:id="@+id/fliter2_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/top2"
+                android:horizontalSpacing="1dp"
+                android:numColumns="4"/>
+
+            <!--   <View
+                   android:id="@+id/line2"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_below="@+id/fliter2_gridview"
+                   android:background="@color/shadow"/>
+
+               <TextView
+                   android:id="@+id/top3"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/line2"
+                   android:layout_marginBottom="10dp"
+                   android:layout_marginTop="10dp"
+                   android:gravity="center"
+                   android:text="业务类型"/>
+
+               <com.qgyyzs.globalcosmetics.custom.MyGridView
+                   android:id="@+id/fliter3_gridview"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_below="@+id/top3"
+                   android:horizontalSpacing="2dp"
+                   android:numColumns="3"/>-->
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/fliter_reset_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/text_shape_gray"
+            android:text="重置"/>
+
+        <Button
+            android:id="@+id/fliter_ok_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/my_btn"
+            android:text="确定"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/item_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_product1_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="我熟悉的科室"/>
+
+        <TextView
+            android:id="@+id/item_product2_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="100dp"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/ic_right_black"
+            android:gravity="center"
+            android:lines="1"
+            android:text="未设置"
+            android:textSize="13sp"/>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/content"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_title_tv"
+                style="@style/item_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:maxLines="2"
+                android:lineSpacingMultiplier="1.2"
+                android:lineSpacingExtra="2dp"
+                android:ellipsize="end"
+                android:text="湖北药品采购执行：必须知道的6件事"/>
+
+            <TextView
+                android:id="@+id/item_time_tv"
+                style="@style/item_s_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6分钟前"/>
+            <TextView
+                android:id="@+id/item_looknum_tv"
+                style="@style/item_s_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:text="浏览：32"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/shadow"/>
+</LinearLayout>

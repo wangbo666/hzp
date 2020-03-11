@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--轮播图-->
+    <com.youth.banner.Banner
+        android:id="@+id/banner_top"
+        app:title_height="30dp"
+        app:indicator_drawable_selected="@drawable/shape_banner_select"
+        app:indicator_drawable_unselected="@drawable/shape_banner_unselect"
+        android:layout_width="match_parent"
+        android:background="@drawable/default_banner"
+        android:layout_height="160dp"/>
+    <!--四类展示-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/home_company_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_company"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="名企展区"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_product_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_sku"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="招商产品"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/home_agent_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_proxy"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="代理商库"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/home_bid_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_caigou"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="代理信息"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--四类展示-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/home_prducts_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_biao"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="美容展会"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/home_producttype_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_type"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="产品分类"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/home_news_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_news"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="日化资讯"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/home_zhaopin_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_recruit"/>
+
+            <TextView
+                style="@style/home_ll_name"
+                android:text="人才招聘"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/shadow"/>
+
+    <LinearLayout
+        android:id="@+id/toutiao_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/home_news_logo"/>
+
+        <com.qgyyzs.globalcosmetics.customview.UPMarqueeView
+            android:id="@+id/upview1"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/shadow"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/main_color"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/main_color"
+        app:tabTextColor="@color/item_title"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/shadow"/>
+    <com.qgyyzs.globalcosmetics.customview.NoScrollListview
+        android:id="@+id/mListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp" />
+
+
+</LinearLayout>

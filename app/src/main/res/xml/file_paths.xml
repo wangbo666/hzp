@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--物理路径相当于Context.getFilesDir() + /path/-->
+    <files-path name="name" path="huanqiu" />
+
+    <!--物理路径相当于Context.getCacheDir() + /path/-->
+    <cache-path name="name" path="huanqiu" />
+
+    <!--物理路径相当于Environment.getExternalStorageDirectory() + /path/-->
+    <external-path name="name" path="huanqiu" />
+
+    <!--物理路径相当于Context.getExternalFilesDir(String) + /path/-->
+    <external-files-path name="name" path="huanqiu" />
+
+    <!--物理路径相当于Context.getExternalCacheDir() + /path/-->
+    <external-cache-path name="name" path="huanqiu" />
+
+    <!--对应外部内存卡根目录：Environment.getExternalStorageDirectory()-->
+    <external-path name="ext_root" path="/" />
+    <!--指定文件存储的区块和区块的相对路径-->
+    <files-path name="my_path" path="images/"/>
+
+</paths>
