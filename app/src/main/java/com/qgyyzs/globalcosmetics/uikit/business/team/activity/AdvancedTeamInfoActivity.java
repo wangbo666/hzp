@@ -30,10 +30,6 @@ import com.netease.nimlib.sdk.team.constant.VerifyTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.qgyyzs.globalcosmetics.R;
-import com.qgyyzs.globalcosmetics.base.BaseModel;
-import com.qgyyzs.globalcosmetics.mvp.presenter.TeamPresenter;
-import com.qgyyzs.globalcosmetics.mvp.view.TeamView;
-import com.qgyyzs.globalcosmetics.ui.activity.ChatUserdetailActivity;
 import com.qgyyzs.globalcosmetics.uikit.api.NimUIKit;
 import com.qgyyzs.globalcosmetics.uikit.api.model.SimpleCallback;
 import com.qgyyzs.globalcosmetics.uikit.api.model.team.TeamDataChangedObserver;
@@ -75,9 +71,8 @@ import java.util.List;
  * Created by huangjun on 2015/3/17.
  */
 public class AdvancedTeamInfoActivity extends UI implements
-        TAdapterDelegate, TeamMemberAdapter.AddMemberCallback, TeamMemberHolder.TeamMemberHolderEventListener, TeamView {
+        TAdapterDelegate, TeamMemberAdapter.AddMemberCallback, TeamMemberHolder.TeamMemberHolderEventListener{
     private String membersString;
-    private TeamPresenter presenter = new TeamPresenter(this);
     private static final int REQUEST_CODE_TRANSFER = 101;
     private static final int REQUEST_CODE_MEMBER_LIST = 102;
     private static final int REQUEST_CODE_CONTACT_SELECT = 103;
@@ -251,10 +246,6 @@ public class AdvancedTeamInfoActivity extends UI implements
         if (dialog != null) {
             dialog.dismiss();
         }
-        if (presenter != null) {
-            presenter.detachView();
-        }
-
         if (authenDialog != null) {
             authenDialog.dismiss();
         }
@@ -839,7 +830,6 @@ public class AdvancedTeamInfoActivity extends UI implements
                     }
                     if (failedAccounts.size() > 0) {
                         membersString = membersString.substring(0, membersString.length() - 1);
-                        presenter.joinTeam(getJoinJsonString());
                     }
                 } else {
                     TeamHelper.onMemberTeamNumOverrun(failedAccounts, AdvancedTeamInfoActivity.this);
@@ -909,7 +899,6 @@ public class AdvancedTeamInfoActivity extends UI implements
             @Override
             public void onSuccess(Void param) {
                 DialogMaker.dismissProgressDialog();
-                presenter.outTeam(getOutJsonString());
                 Toast.makeText(AdvancedTeamInfoActivity.this, R.string.quit_team_success, Toast.LENGTH_SHORT).show();
                 setResult(Activity.RESULT_OK, new Intent().putExtra(RESULT_EXTRA_REASON, RESULT_EXTRA_REASON_QUIT));
                 finish();
@@ -937,7 +926,6 @@ public class AdvancedTeamInfoActivity extends UI implements
             @Override
             public void onSuccess(Void param) {
                 DialogMaker.dismissProgressDialog();
-                presenter.removeTeam(getRemoveJsonString());
                 setResult(Activity.RESULT_OK, new Intent().putExtra(RESULT_EXTRA_REASON, RESULT_EXTRA_REASON_DISMISS));
                 Toast.makeText(AdvancedTeamInfoActivity.this, R.string.dismiss_team_success, Toast.LENGTH_SHORT).show();
                 finish();
@@ -1167,12 +1155,12 @@ public class AdvancedTeamInfoActivity extends UI implements
 
     @Override
     public void onHeadImageViewClick(String account) {
-        String fuserid = account.substring(6, account.length());
-        Intent intent = new Intent(this, ChatUserdetailActivity.class);
-        intent.putExtra("tid", teamId);
-        intent.putExtra("isAdmin", isSelfAdmin || isSelfManager ? true : false);
-        intent.putExtra("fuserid", fuserid);
-        startActivity(intent);
+//        String fuserid = account.substring(6, account.length());
+//        Intent intent = new Intent(this, ChatUserdetailActivity.class);
+//        intent.putExtra("tid", teamId);
+//        intent.putExtra("isAdmin", isSelfAdmin || isSelfManager ? true : false);
+//        intent.putExtra("fuserid", fuserid);
+//        startActivity(intent);
         // 打开群成员信息详细页面
 //        AdvancedTeamMemberInfoActivity.startActivityForResult(AdvancedTeamInfoActivity.this, account, teamId);
     }
@@ -1496,22 +1484,6 @@ public class AdvancedTeamInfoActivity extends UI implements
         DialogMaker.dismissProgressDialog();
     }
 
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void closeLoading() {
-
-    }
-
-    @Override
-    public void onErrorCode(BaseModel model) {
-
-    }
-
     public String getJoinJsonString() {
         JSONObject jsonObject = new JSONObject();
         try {
@@ -1544,21 +1516,5 @@ public class AdvancedTeamInfoActivity extends UI implements
             e.printStackTrace();
         }
         return jsonObject.toString();
-    }
-
-
-    @Override
-    public void showJoinResult(String result) {
-
-    }
-
-    @Override
-    public void showOutResult(String result) {
-
-    }
-
-    @Override
-    public void showRemoveResult(String result) {
-
     }
 }

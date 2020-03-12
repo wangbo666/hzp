@@ -15,7 +15,6 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
-import com.qgyyzs.globalcosmetics.nim.session.extension.ProductAttachment;
 import com.qgyyzs.globalcosmetics.uikit.api.NimUIKit;
 import com.qgyyzs.globalcosmetics.uikit.api.UIKitInitStateListener;
 import com.qgyyzs.globalcosmetics.uikit.api.UIKitOptions;
@@ -296,15 +295,6 @@ public final class NimUIKitImpl {
 
     public static void startP2PSession(Context context, String account, IMMessage anchor) {
         NimUIKitImpl.startChatting(context, account, SessionTypeEnum.P2P, commonP2PSessionCustomization, anchor);
-    }
-
-    public static void startP2PSessions(Context context, String account, ProductAttachment anchor) {
-        NimUIKitImpl.startChatting(context, account, SessionTypeEnum.P2P, commonP2PSessionCustomization, anchor);
-    }
-
-    public static void startChatting(Context context, String id, SessionTypeEnum sessionType, SessionCustomization
-            customization, ProductAttachment anchor) {
-        P2PMessageActivity.start(context, id, customization, anchor);
     }
 
     public static void startTeamSession(Context context, String tid) {

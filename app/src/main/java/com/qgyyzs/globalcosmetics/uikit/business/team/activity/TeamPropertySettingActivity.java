@@ -19,9 +19,6 @@ import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.team.TeamService;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.qgyyzs.globalcosmetics.R;
-import com.qgyyzs.globalcosmetics.base.BaseModel;
-import com.qgyyzs.globalcosmetics.mvp.presenter.UpdateTeamPresenter;
-import com.qgyyzs.globalcosmetics.mvp.view.UpdateTeamView;
 import com.qgyyzs.globalcosmetics.uikit.api.wrapper.NimToolBarOptions;
 import com.qgyyzs.globalcosmetics.uikit.common.activity.ToolBarOptions;
 import com.qgyyzs.globalcosmetics.uikit.common.activity.UI;
@@ -34,8 +31,7 @@ import org.json.JSONObject;
  * 群属性
  * Created by hzxuwen on 2015/4/10.
  */
-public class TeamPropertySettingActivity extends UI implements View.OnClickListener, UpdateTeamView {
-    private UpdateTeamPresenter presenter = new UpdateTeamPresenter(this);
+public class TeamPropertySettingActivity extends UI implements View.OnClickListener {
 
     private static final String EXTRA_TID = "EXTRA_TID";
     public static final String EXTRA_DATA = "EXTRA_DATA";
@@ -97,7 +93,7 @@ public class TeamPropertySettingActivity extends UI implements View.OnClickListe
         parseIntent();
 
         TextView toolbarView = findView(R.id.action_bar_right_clickable_textview);
-        toolbarView.setText(R.string.save);
+        toolbarView.setText("保存");
         toolbarView.setOnClickListener(this);
     }
 
@@ -234,7 +230,6 @@ public class TeamPropertySettingActivity extends UI implements View.OnClickListe
                 @Override
                 public void onSuccess(Void param) {
                     if (filed == TeamFieldEnum.Name) {
-                        presenter.updateTeam(getJsonString());
                     }
                     Toast.makeText(TeamPropertySettingActivity.this, R.string.update_success, Toast.LENGTH_SHORT).show();
                     saved();
@@ -258,31 +253,9 @@ public class TeamPropertySettingActivity extends UI implements View.OnClickListe
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (presenter != null)
-            presenter.detachView();
-    }
-
-    @Override
     public void onBackPressed() {
         showKeyboard(false);
         super.onBackPressed();
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void closeLoading() {
-
-    }
-
-    @Override
-    public void onErrorCode(BaseModel model) {
-
     }
 
     public String getJsonString() {
@@ -294,11 +267,5 @@ public class TeamPropertySettingActivity extends UI implements View.OnClickListe
             e.printStackTrace();
         }
         return jsonObject.toString();
-    }
-
-
-    @Override
-    public void showUpdateResult(String result) {
-
     }
 }

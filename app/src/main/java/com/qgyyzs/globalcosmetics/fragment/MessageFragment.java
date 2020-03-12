@@ -47,7 +47,7 @@ public class MessageFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void initData() {
         transaction = getFragmentManager().beginTransaction();
-        chatNewsFragment = new ChatNewsFragment();
+        chatNewsFragment = new SessionFragment();
         transaction.add(R.id.news_container, chatNewsFragment);
         transaction.commit();
     }

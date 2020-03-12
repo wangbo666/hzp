@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
@@ -276,14 +280,15 @@ public class ZizhiPostActivity extends BaseActivity implements View.OnClickListe
             mTvEnd.setText(getDate(bean.getJsonData().getZsend()));
             if(TextUtils.isEmpty(bean.getJsonData().getZsimage())) {
                 mTvzhizhao.setVisibility(View.VISIBLE);
+            }else {
+                Glide.with(this).asBitmap().load(bean.getJsonData().getZsimage()).into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        file = FileUtils.compressImage(resource);
+                        imgZhizhao.setImageBitmap(resource);
+                    }
+                });
             }
-            Glide.with(this).load(bean.getJsonData().getZsimage()).into(imgZhizhao);
-            Glide.with(this).load(bean.getJsonData().getZsimage()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    file = FileUtils.compressImage(resource);
-                }
-            });
         }
     }
 

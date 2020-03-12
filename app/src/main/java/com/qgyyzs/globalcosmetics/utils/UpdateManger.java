@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.application.MyApplication;
-import com.qgyyzs.globalcosmetics.nim.LogoutHelper;
+import com.qgyyzs.globalcosmetics.nim.login.LogoutHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;

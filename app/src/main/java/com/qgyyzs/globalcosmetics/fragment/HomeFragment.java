@@ -270,12 +270,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,B
         dlPresenter =new HomeDLPresenter(dlView, (RxFragmentActivity) getActivity());
         mTablayout.addTab(mTablayout.newTab().setText("最新招商"));
         mTablayout.addTab(mTablayout.newTab().setText("最新代理商"));
-        mTablayout.post(new Runnable() {
-            @Override
-            public void run() {
-                TabLayoutUtils.setIndicator(mTablayout,50,50);
-            }
-        });
+//        mTablayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                TabLayoutUtils.setIndicator(mTablayout,50,50);
+//            }
+//        });
 
 
 //        final FastScrollManger manager=new FastScrollManger(getActivity(), 2);

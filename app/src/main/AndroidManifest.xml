@@ -110,7 +110,10 @@
         </provider>
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="fa8bac2e9a3aa09884af2928a7bdcf27" />
+            android:value="6a1776372c8831d9e3bc2b1da052028b" />
+<!--        <meta-data-->
+<!--            android:name="com.qgyyzs.globalcosmetics.appKey"-->
+<!--            android:value="fa8bac2e9a3aa09884af2928a7bdcf27" />-->
 
         <service android:name="com.qgyyzs.globalcosmetics.service.BadgeIntentService"/>
 
@@ -129,7 +132,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.qgyyzs.globalcosmetics.nim.activity.AddContactActivity"
+            android:name="com.qgyyzs.globalcosmetics.activity.AddContactActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity

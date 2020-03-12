@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/shadow"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/shadow"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_edit"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/cancel_tv"
+            android:layout_weight="1"
+            android:background="@drawable/text_shape_gray"
+            android:drawableLeft="@mipmap/icon_search_gray"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:hint="搜索产品或者公司名称"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="8dp"
+            android:singleLine="true"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/cancel_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="取消"
+            android:textColor="@color/item_title"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="热门搜索"
+            android:textColor="@color/color_grey_666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_change"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:padding="15dp"
+            android:text="换一批"
+            android:textColor="@color/main_color"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shadow_f" />
+
+    <com.example.library.AutoFlowLayout
+        android:id="@+id/afl_cotent"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="10dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/shadow_f" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="最近搜索"
+            android:textColor="@color/color_grey_666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/clear_hostory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:padding="15dp"
+            android:text="清除历史"
+            android:textColor="@color/main_color"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shadow_f" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/shadow"
+        android:orientation="vertical">
+
+
+        <com.qgyyzs.globalcosmetics.ui.customview.EmptyRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <include layout="@layout/view_empty" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.jaiky.imagespickers.ImageLoader;
 import com.qgyyzs.globalcosmetics.R;
 
@@ -15,8 +16,8 @@ public class GlideLoader implements ImageLoader {
     public void displayImage(Context context, String path, ImageView imageView) {
         Glide.with(context)
                 .load(path)
-                .placeholder(R.drawable.global_img_default)
-                .centerCrop()
+                .apply(new RequestOptions().placeholder(R.drawable.global_img_default)
+                .centerCrop())
                 .into(imageView);
     }
 

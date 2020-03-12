@@ -8,12 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.CompanyDetialActivity;
 import com.qgyyzs.globalcosmetics.base.CommonAdapter;
 import com.qgyyzs.globalcosmetics.base.ViewHolder;
 import com.qgyyzs.globalcosmetics.bean.CompanyGuanBean;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 
 import java.util.List;
 
@@ -38,8 +38,9 @@ public class CompanyGuanListAdapter extends CommonAdapter<CompanyGuanBean> {
         if (TextUtils.isEmpty(biduserBean.getCompanylogo())) {
             mItemUserphotoImg.setImageResource(R.drawable.icon_user_defult);
         }else{
-            Glide.with(mContext).load(biduserBean.getCompanylogo()).error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult).transform(new GlideCircleTransform(mContext))
-                    .into(mItemUserphotoImg);
+            Glide.with(mContext).load(biduserBean.getCompanylogo())
+                    .apply(RequestOptions.circleCropTransform().error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult)
+                    ).into(mItemUserphotoImg);
         }
 
         viewHolder.getView(R.id.content).setOnClickListener(new View.OnClickListener() {

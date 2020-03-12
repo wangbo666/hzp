@@ -11,9 +11,9 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.bean.FriendBean;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 
 import java.util.List;
 
@@ -86,7 +86,9 @@ public class FriendAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.tvTitle.setText("未命名");
         }
         if(!TextUtils.isEmpty(list.get(position).getHeadImg())) {
-            Glide.with(context).load(list.get(position).getHeadImg()).error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult).transform(new GlideCircleTransform(context)).into(viewHolder.mImageView);
+            Glide.with(context).load(list.get(position).getHeadImg())
+                    .apply(RequestOptions.circleCropTransform()
+                            .error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult)).into(viewHolder.mImageView);
         }else{
             viewHolder.mImageView.setImageResource(R.drawable.icon_user_defult);
         }

@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.ChatUserdetailActivity;
 import com.qgyyzs.globalcosmetics.base.CommonAdapter;
 import com.qgyyzs.globalcosmetics.bean.UserBean;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 
 import java.util.List;
 
@@ -37,8 +37,9 @@ public class FriendUserListAdapter extends CommonAdapter<UserBean> {
         if(TextUtils.isEmpty(userBean.getPhoto())) {
             mItemUserphotoImg.setImageResource(R.drawable.icon_user_defult);
         }else{
-            Glide.with(mContext).load(userBean.getPhoto()).transform(new GlideCircleTransform(mContext)).error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult)
-                    .into(mItemUserphotoImg);
+            Glide.with(mContext).load(userBean.getPhoto())
+                    .apply(RequestOptions.circleCropTransform().error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult)
+                    ).into(mItemUserphotoImg);
         }
         viewHolder.getView(R.id.content).setOnClickListener(new View.OnClickListener() {
             @Override

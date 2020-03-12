@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.WebBaseActivity;
 import com.qgyyzs.globalcosmetics.base.CommonAdapter;
@@ -40,7 +41,8 @@ public class NewsAdapter extends CommonAdapter<MedicalNewsBean> {
             mImageView.setVisibility(View.GONE);
         }else{
             mImageView.setVisibility(View.VISIBLE);
-            Glide.with(mContext).load(medicalNewsBean.getImg()).error(R.drawable.global_img_default).placeholder(R.drawable.global_img_default).into(mImageView);
+            Glide.with(mContext).load(medicalNewsBean.getImg()).apply(new RequestOptions()
+                    .error(R.drawable.global_img_default).placeholder(R.drawable.global_img_default)).into(mImageView);
         }
         viewHolder.getView(R.id.content).setOnClickListener(new View.OnClickListener() {
             @Override

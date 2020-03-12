@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:elevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:layout_scrollFlags="scroll">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner_top"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/default_banner"
+            app:indicator_drawable_selected="@drawable/shape_banner_select"
+            app:indicator_drawable_unselected="@drawable/shape_banner_unselect"
+            app:title_height="30dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <RadioButton
+                android:id="@+id/rbtn_my"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center_vertical|left"
+                android:text="只显示我关注的会场"
+                android:textColor="@color/exp_chcek_color"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rbtn_all"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center_vertical|right"
+                android:text="显示全部"
+                android:textColor="@color/exp_chcek_color"
+                android:textSize="15sp" />
+        </RadioGroup>
+    </LinearLayout>
+</com.google.android.material.appbar.AppBarLayout>

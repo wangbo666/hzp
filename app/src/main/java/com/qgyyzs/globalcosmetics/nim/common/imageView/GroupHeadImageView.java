@@ -38,7 +38,7 @@ public class GroupHeadImageView extends ImageView {
     }
 
     private static final int[] headIconResources = new int[]{
-            R.drawable.head_icon_1, R.drawable.head_icon_2, R.drawable.head_icon_3
+            R.drawable.ic_add_friends, R.drawable.ic_add_friends, R.drawable.ic_add_friends
     };
 
     private static final Paint antiPaint = createAntiPaint();

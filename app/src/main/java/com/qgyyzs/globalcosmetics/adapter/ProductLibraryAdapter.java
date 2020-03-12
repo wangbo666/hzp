@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.LoginActivity;
 import com.qgyyzs.globalcosmetics.activity.MedicineDetailActivity;
@@ -51,7 +52,7 @@ public class ProductLibraryAdapter extends CommonAdapter<MyProductBean.JsonData>
             mItemMedicineLogo.setImageResource(R.mipmap.medicin_defult);
         }else{
             String str[]=medicineBean.getImage().split("\\|");
-            Glide.with(mContext).load(str[0]).error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult).into(mItemMedicineLogo);
+            Glide.with(mContext).load(str[0]).apply(new RequestOptions().error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult)).into(mItemMedicineLogo);
         }
         rlVip.setVisibility(medicineBean.getFlag()==1?View.VISIBLE:View.GONE);
 

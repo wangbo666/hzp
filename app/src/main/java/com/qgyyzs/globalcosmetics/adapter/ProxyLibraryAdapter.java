@@ -9,12 +9,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.UserDetailActivity;
 import com.qgyyzs.globalcosmetics.base.CommonAdapter;
 import com.qgyyzs.globalcosmetics.base.ViewHolder;
 import com.qgyyzs.globalcosmetics.bean.ProxyLibraryBean;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.TimeUtils;
 
 import java.util.Date;
@@ -48,7 +48,9 @@ public class ProxyLibraryAdapter extends CommonAdapter<ProxyLibraryBean.JsonData
         if(TextUtils.isEmpty(proxyBean.getHeadImg())) {
             mItemUserphotoImg.setImageResource(R.mipmap.icon_user_defult);
         }else{
-            Glide.with(mContext).load(proxyBean.getHeadImg()).error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult).transform(new GlideCircleTransform(mContext)).into(mItemUserphotoImg);
+            Glide.with(mContext).load(proxyBean.getHeadImg())
+                    .apply(RequestOptions.circleCropTransform()
+                            .error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult)).into(mItemUserphotoImg);
         }
         if (TextUtils.isEmpty(proxyBean.getLastRequestTime())) {
             mItemLastTime.setText("");

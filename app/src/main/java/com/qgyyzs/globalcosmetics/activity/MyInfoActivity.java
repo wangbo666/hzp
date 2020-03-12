@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
@@ -47,7 +50,6 @@ import com.qgyyzs.globalcosmetics.mvp.ipresenter.UserDetialPresenter;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.ZizhiStatePresenter;
 import com.qgyyzs.globalcosmetics.utils.AesUtils;
 import com.qgyyzs.globalcosmetics.utils.FileUtils;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.ImageUtils;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.ScreenUtils;
@@ -69,8 +71,8 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class MyInfoActivity extends BaseActivity implements View.OnClickListener,UserDetialView {
-    private UserDetialPresenter userDetialPresenter=new UserDetialPresenter(this,this);
+public class MyInfoActivity extends BaseActivity implements View.OnClickListener, UserDetialView {
+    private UserDetialPresenter userDetialPresenter = new UserDetialPresenter(this, this);
     private UpdateAvtarPresenter updateAvatarPresenter;
     private BindPhoneCodePresenter sendCodePresenter;
     private BindPhonePresenter bindPresenter;
@@ -134,7 +136,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     private boolean isDailishang;
 
     private Dialog mDialog;
-    private Button mBtnCancel,mBtnBind;
+    private Button mBtnCancel, mBtnBind;
     private TextView mTvUpdateBind;
     private ClearEditText mPhoneEdit;
     private EditText mCodeEdit;
@@ -158,15 +160,16 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     protected int getLayout() {
         return R.layout.activity_my_info;
     }
+
     @Override
-    public void initData(){
-        sendCodePresenter=new BindPhoneCodePresenter(codeView,this);
-        bindPresenter=new BindPhonePresenter(bindView,this);
-        cancelPresenter=new CancelBindPhonePresenter(cancelbindView,this);
+    public void initData() {
+        sendCodePresenter = new BindPhoneCodePresenter(codeView, this);
+        bindPresenter = new BindPhonePresenter(bindView, this);
+        cancelPresenter = new CancelBindPhonePresenter(cancelbindView, this);
 
-        zizhiStatePresenter=new ZizhiStatePresenter(zizhiView,this);
+        zizhiStatePresenter = new ZizhiStatePresenter(zizhiView, this);
 
-        updateAvatarPresenter=new UpdateAvtarPresenter(updateView,this);
+        updateAvatarPresenter = new UpdateAvtarPresenter(updateView, this);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -176,15 +179,16 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         }).start();
 
         mTvAccountName.setText(accountname);
-        mTvBind.setText(TextUtils.isEmpty(mobile)?"未绑定":mobile);
-        mTvCancelBind.setText(TextUtils.isEmpty(mobile)?"":"(解除绑定)");
-        mTvCancelBind.setVisibility(accountname.equals(mobile)?View.GONE:View.VISIBLE);
-        mMyRealnameTv.setText(TextUtils.isEmpty(realname)?"未设置":realname);
-        mMyPlaceTv.setText(TextUtils.isEmpty(resplace)?"未设置":resplace);
-        mMyCompanyTv.setText(TextUtils.isEmpty(company)?"未设置":company);
-        mMyJieshaoTv.setText(TextUtils.isEmpty(jiashao)?"未设置":jiashao);
-        mMyPhoneTv.setText(TextUtils.isEmpty(linktel)?"未设置":linktel.split("\\|")[0]);
-        Glide.with(this).load(headimg).error(R.drawable.icon_user_defult).transform(new GlideCircleTransform(MyInfoActivity.this)).placeholder(R.drawable.icon_user_defult).into(mMyPhotoImg);
+        mTvBind.setText(TextUtils.isEmpty(mobile) ? "未绑定" : mobile);
+        mTvCancelBind.setText(TextUtils.isEmpty(mobile) ? "" : "(解除绑定)");
+        mTvCancelBind.setVisibility(accountname.equals(mobile) ? View.GONE : View.VISIBLE);
+        mMyRealnameTv.setText(TextUtils.isEmpty(realname) ? "未设置" : realname);
+        mMyPlaceTv.setText(TextUtils.isEmpty(resplace) ? "未设置" : resplace);
+        mMyCompanyTv.setText(TextUtils.isEmpty(company) ? "未设置" : company);
+        mMyJieshaoTv.setText(TextUtils.isEmpty(jiashao) ? "未设置" : jiashao);
+        mMyPhoneTv.setText(TextUtils.isEmpty(linktel) ? "未设置" : linktel.split("\\|")[0]);
+        Glide.with(this).load(headimg).apply(RequestOptions.circleCropTransform()
+                .error(R.drawable.icon_user_defult)).into(mMyPhotoImg);
 
     }
 
@@ -199,17 +203,17 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private StringView zizhiView=new StringView() {
+    private StringView zizhiView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
-            remake=result;
-            if(result.equals("0")) {
+            remake = result;
+            if (result.equals("0")) {
                 mTvzizhiState.setText("审核中");
-            }else if(result.equals("1")){
+            } else if (result.equals("1")) {
                 mTvzizhiState.setText("已审核");
-            }else{
+            } else {
                 mTvzizhiState.setText("未认证");
             }
         }
@@ -249,36 +253,36 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initView() {
         StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this,toolbar);
+        StatusBarUtil.setPaddingSmart(this, toolbar);
         EventBus.getDefault().register(this);
         mSharedPreferences = getSharedPreferences(MyApplication.USERSPINFO, Context.MODE_PRIVATE);
-        mEditor=mSharedPreferences.edit();
-        userid = mSharedPreferences.getString("userid","");
-        accountname= mSharedPreferences.getString("accountname","");
+        mEditor = mSharedPreferences.edit();
+        userid = mSharedPreferences.getString("userid", "");
+        accountname = mSharedPreferences.getString("accountname", "");
         headimg = mSharedPreferences.getString("HeadImg", "");
         realname = mSharedPreferences.getString("RealName", "");
         company = mSharedPreferences.getString("Company", "");
         jiashao = mSharedPreferences.getString("JieShao", "");
         resplace = mSharedPreferences.getString("ResPlace", "");
         linktel = mSharedPreferences.getString("linkTel", "");
-        mobile = mSharedPreferences.getString("mobile","");
-        isopen = mSharedPreferences.getBoolean("IsOpen",false);
+        mobile = mSharedPreferences.getString("mobile", "");
+        isopen = mSharedPreferences.getBoolean("IsOpen", false);
 
-        waitDialog=new WaitDialog(this);
+        waitDialog = new WaitDialog(this);
     }
 
-    private void initDialog(){
+    private void initDialog() {
         mDialog = new Dialog(this);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialog.setContentView(R.layout.dialog_bindmobile);
         mDialog.setCancelable(false);
         Window dialogWindow = mDialog.getWindow();
-        mBtnCancel= (Button) dialogWindow.findViewById(R.id.cancel_btn);
-        mBtnBind= (Button) dialogWindow.findViewById(R.id.bind_btn);
-        mPhoneEdit= (ClearEditText) dialogWindow.findViewById(R.id.phone_edit);
-        mCodeEdit= (EditText) dialogWindow.findViewById(R.id.code_edit);
-        mTvUpdateBind=(TextView)dialogWindow.findViewById(R.id.mTvUpdateBind);
-        mGetcodeText= (TextView) dialogWindow.findViewById(R.id.getcode_text);
+        mBtnCancel = (Button) dialogWindow.findViewById(R.id.cancel_btn);
+        mBtnBind = (Button) dialogWindow.findViewById(R.id.bind_btn);
+        mPhoneEdit = (ClearEditText) dialogWindow.findViewById(R.id.phone_edit);
+        mCodeEdit = (EditText) dialogWindow.findViewById(R.id.code_edit);
+        mTvUpdateBind = (TextView) dialogWindow.findViewById(R.id.mTvUpdateBind);
+        mGetcodeText = (TextView) dialogWindow.findViewById(R.id.getcode_text);
         WindowManager.LayoutParams lp1 = dialogWindow.getAttributes();// 创建布局
         lp1.width = ScreenUtils.getScreenWidth(this);
         lp1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -294,7 +298,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         Intent intent;
         switch (v.getId()) {
             case R.id.cancel_btn:
-                if(mDialog!=null)
+                if (mDialog != null)
                     mDialog.dismiss();
                 break;
             case R.id.getcode_text:
@@ -305,20 +309,20 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.bind_btn:
                 if (judgePhone()) {
-                    if(mTvCancelBind.getText().toString().equals("")) {
+                    if (mTvCancelBind.getText().toString().equals("")) {
                         bindPresenter.BindPhone();
                     }
                 }
                 break;
             case R.id.my_zizhi_rl:
-                intent=new Intent(this,ZizhiPostActivity.class);
-                intent.putExtra("remake",remake);
+                intent = new Intent(this, ZizhiPostActivity.class);
+                intent.putExtra("remake", remake);
                 startActivity(intent);
                 break;
         }
     }
 
-    @OnClick({R.id.update_bind,R.id.my_photo_rl, R.id.my_realname_rl, R.id.my_phone_rl, R.id.my_place_rl, R.id.my_company_rl, R.id.update_pwd, R.id.my_jieshao_rl,R.id.mTvCancelBind})
+    @OnClick({R.id.update_bind, R.id.my_photo_rl, R.id.my_realname_rl, R.id.my_phone_rl, R.id.my_place_rl, R.id.my_company_rl, R.id.update_pwd, R.id.my_jieshao_rl, R.id.mTvCancelBind})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -374,13 +378,13 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case R.id.update_bind:
-                if(TextUtils.isEmpty(mobile)||mobile.equals("null")){
+                if (TextUtils.isEmpty(mobile) || mobile.equals("null")) {
                     initDialog();
                     mTvUpdateBind.setText("绑定手机后可用作找回密码");
                     mBtnBind.setText("确定绑定");
-                    if(mDialog!=null)
+                    if (mDialog != null)
                         mDialog.show();
-                }else{
+                } else {
                     new AlertDialog.Builder(this)
                             .setMessage("是否取消绑定?")
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -400,17 +404,17 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case R.id.update_pwd:
-                if(TextUtils.isEmpty(mobile)||mobile.equals("null")){
-                    ToastUtil.showToast(this,"请先绑定手机号",true);
-                }else {
+                if (TextUtils.isEmpty(mobile) || mobile.equals("null")) {
+                    ToastUtil.showToast(this, "请先绑定手机号", true);
+                } else {
                     startActivity(new Intent(this, UpdatePwdActivity.class));
                 }
                 break;
             case R.id.my_phone_rl:
                 intent = new Intent(this, UpdatePhoneActivity.class);
-                intent.putExtra("linktel", TextUtils.isEmpty(linktel)?"":linktel.split("\\|")[0]);
+                intent.putExtra("linktel", TextUtils.isEmpty(linktel) ? "" : linktel.split("\\|")[0]);
                 intent.putExtra("isopen", isopen);
-                intent.putExtra("isdailishang",isDailishang);
+                intent.putExtra("isdailishang", isDailishang);
                 startActivityForResult(intent, REQUEST_PHONE_CODE);
                 break;
             case R.id.my_place_rl:
@@ -434,26 +438,26 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             case R.id.my_realname_rl:
                 intent = new Intent(this, UpdateUserActivity.class);
                 intent.putExtra("title", "真实姓名");
-                intent.putExtra("hint", TextUtils.isEmpty(realname)?"":realname);
+                intent.putExtra("hint", TextUtils.isEmpty(realname) ? "" : realname);
                 startActivityForResult(intent, REQUEST_NAME_CODE);
                 break;
             case R.id.my_company_rl://公司
                 intent = new Intent(this, UpdateUserActivity.class);
                 intent.putExtra("title", "所在公司");
-                intent.putExtra("hint", TextUtils.isEmpty(company)?"":company);
+                intent.putExtra("hint", TextUtils.isEmpty(company) ? "" : company);
                 startActivityForResult(intent, REQUEST_COMPANY_CODE);
                 break;
             case R.id.my_jieshao_rl:
                 intent = new Intent(this, UpdateUserActivity.class);
                 intent.putExtra("title", "个人介绍");
-                intent.putExtra("hint", TextUtils.isEmpty(jiashao)?"":jiashao);
+                intent.putExtra("hint", TextUtils.isEmpty(jiashao) ? "" : jiashao);
                 startActivityForResult(intent, REQUEST_JIESHAO_CODE);
                 break;
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoonEvent(AnyEventZizhi anyEventZizhi){
+    public void onMoonEvent(AnyEventZizhi anyEventZizhi) {
         zizhiStatePresenter.getState();
     }
 
@@ -466,7 +470,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && data != null) {
-            switch (requestCode){
+            switch (requestCode) {
                 case REQUEST_CODE:
                     List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
 
@@ -482,20 +486,20 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                     updateAvatarPresenter.updateAvtar(parts);
                     break;
                 case REQUEST_NAME_CODE:
-                    realname=data.getStringExtra("RealName");
+                    realname = data.getStringExtra("RealName");
                     mMyRealnameTv.setText(realname);
                     break;
                 case REQUEST_COMPANY_CODE:
-                    company=data.getStringExtra("Company");
+                    company = data.getStringExtra("Company");
                     mMyCompanyTv.setText(company);
                     break;
                 case REQUEST_JIESHAO_CODE:
-                    jiashao=data.getStringExtra("JieShao");
+                    jiashao = data.getStringExtra("JieShao");
                     mMyJieshaoTv.setText(jiashao);
                     break;
                 case REQUEST_PHONE_CODE:
-                    isopen=data.getBooleanExtra("IsOpen",false);
-                    linktel=data.getStringExtra("linkTel");
+                    isopen = data.getBooleanExtra("IsOpen", false);
+                    linktel = data.getStringExtra("linkTel");
                     mMyPhoneTv.setText(linktel);
                     break;
             }
@@ -503,15 +507,17 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private StringView updateView=new StringView() {
+    private StringView updateView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
-            ToastUtil.showToast(MyInfoActivity.this,"头像上传成功",true);
-            mEditor.putString("HeadImg",result);
+            ToastUtil.showToast(MyInfoActivity.this, "头像上传成功", true);
+            mEditor.putString("HeadImg", result);
             mEditor.commit();
-            Glide.with(MyInfoActivity.this).load(result).error(R.drawable.icon_user_defult).transform(new GlideCircleTransform(MyInfoActivity.this)).placeholder(R.drawable.icon_user_defult).into(mMyPhotoImg);
+            Glide.with(MyInfoActivity.this).load(result).apply(RequestOptions.circleCropTransform()
+                    .error(R.drawable.icon_user_defult)
+                    .placeholder(R.drawable.icon_user_defult)).into(mMyPhotoImg);
         }
 
         @Override
@@ -527,10 +533,11 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("primarykeyvalue", userid);
-                LogUtils.e( jsonObject.toString());
+                LogUtils.e(jsonObject.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
-            };
+            }
+            ;
             return AesUtils.AesString(jsonObject.toString());
         }
 
@@ -552,6 +559,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             return mPhoneEdit.getText().toString().matches(telRegex);
         }
     }
+
     private boolean judgeTrue() {
         boolean flog = false;
         if (mPhoneEdit.getText().toString().equals(sendPhone)) {
@@ -577,18 +585,19 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         }
         return flog;
     }
-    private StringView bindView=new StringView() {
+
+    private StringView bindView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
-            ToastUtil.showToast(MyInfoActivity.this,"手机号绑定成功",true);
-            mEditor.putString("mobile",mPhoneEdit.getText().toString().trim());
+            ToastUtil.showToast(MyInfoActivity.this, "手机号绑定成功", true);
+            mEditor.putString("mobile", mPhoneEdit.getText().toString().trim());
             mEditor.commit();
             mobile = mPhoneEdit.getText().toString().trim();
             mTvBind.setText(mobile);
             mTvCancelBind.setText("(解除绑定)");
-            if(mDialog!=null)
+            if (mDialog != null)
                 mDialog.dismiss();
         }
 
@@ -604,11 +613,11 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         public String getJsonString() {
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("id", MyApplication.userId);
-                jsonObject.put("mobile",mPhoneEdit.getText().toString().trim());
-                jsonObject.put("yzm",mCodeEdit.getText().toString().trim());
+                jsonObject.put("mobile", mPhoneEdit.getText().toString().trim());
+                jsonObject.put("yzm", mCodeEdit.getText().toString().trim());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -620,12 +629,12 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
         }
     };
-    private StringView codeView=new StringView() {
+    private StringView codeView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
-            ToastUtil.showToast(MyInfoActivity.this,"验证码发送成功",true);
+            ToastUtil.showToast(MyInfoActivity.this, "验证码发送成功", true);
             codeString = result;
             new MyCountTimer(mGetcodeText).start();
         }
@@ -642,9 +651,9 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         public String getJsonString() {
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("mobile",mPhoneEdit.getText().toString().trim());
+                jsonObject.put("mobile", mPhoneEdit.getText().toString().trim());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -657,36 +666,36 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         }
     };
 
-    private StringView cancelbindView=new StringView() {
+    private StringView cancelbindView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
-            if(mDialog!=null&&mDialog.isShowing())mDialog.dismiss();
+            if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
 
             mTvBind.setText("未绑定");
-            mobile="";
+            mobile = "";
             mTvCancelBind.setText(mobile);
-            mEditor.putString("mobile","");
+            mEditor.putString("mobile", "");
             mEditor.commit();
         }
 
         @Override
         public void showLoading() {
-            if(waitDialog!=null&&!waitDialog.isShowing())waitDialog.show();
+            if (waitDialog != null && !waitDialog.isShowing()) waitDialog.show();
         }
 
         @Override
         public void closeLoading() {
-            if(waitDialog!=null&&waitDialog.isShowing())waitDialog.dismiss();
+            if (waitDialog != null && waitDialog.isShowing()) waitDialog.dismiss();
         }
 
         @Override
         public String getJsonString() {
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("id",userid);
-                jsonObject.put("mobile",mobile);
+                jsonObject.put("id", userid);
+                jsonObject.put("mobile", mobile);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -729,31 +738,31 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void showUserResult(UserDetialBean bean) {
-        if(bean==null) {
+        if (bean == null) {
             return;
         }
 
-        isDailishang=bean.getJsonData().getIsDaiLiShang();
-        accountname=bean.getJsonData().getAccountName();
-        headimg=bean.getJsonData().getHeadImg();
-        realname=bean.getJsonData().getRealName();
-        linktel=bean.getJsonData().getLinkTel();
-        mobile=bean.getJsonData().getMobile();
-        isopen=bean.getJsonData().getIsOpen();
-        resplace=bean.getJsonData().getResPlace();
-        company=bean.getJsonData().getCompany();
-        jiashao=bean.getJsonData().getJieShao();
-        mEditor.putString("accountname",accountname);
+        isDailishang = bean.getJsonData().getIsDaiLiShang();
+        accountname = bean.getJsonData().getAccountName();
+        headimg = bean.getJsonData().getHeadImg();
+        realname = bean.getJsonData().getRealName();
+        linktel = bean.getJsonData().getLinkTel();
+        mobile = bean.getJsonData().getMobile();
+        isopen = bean.getJsonData().getIsOpen();
+        resplace = bean.getJsonData().getResPlace();
+        company = bean.getJsonData().getCompany();
+        jiashao = bean.getJsonData().getJieShao();
+        mEditor.putString("accountname", accountname);
         mEditor.putString("HeadImg", headimg);
         mEditor.putString("RealName", realname);
-        mEditor.putString("linkTel",linktel);
-        mEditor.putString("mobile",mobile);
+        mEditor.putString("linkTel", linktel);
+        mEditor.putString("mobile", mobile);
         mEditor.putBoolean("IsOpen", isopen);
-        mEditor.putString("ResPlace", bean.getJsonData().getProvince()+(TextUtils.isEmpty(bean.getJsonData().getCity())?"":","+bean.getJsonData().getCity()));
+        mEditor.putString("ResPlace", bean.getJsonData().getProvince() + (TextUtils.isEmpty(bean.getJsonData().getCity()) ? "" : "," + bean.getJsonData().getCity()));
         mEditor.putString("Company", company);
         mEditor.putString("JieShao", jiashao);
-        mEditor.putBoolean("IsPrimary",bean.getJsonData().getIsPrimary());
-        mEditor.putInt("flag",bean.getJsonData().getFlag());
+        mEditor.putBoolean("IsPrimary", bean.getJsonData().getIsPrimary());
+        mEditor.putInt("flag", bean.getJsonData().getFlag());
         mEditor.commit();
 
     }

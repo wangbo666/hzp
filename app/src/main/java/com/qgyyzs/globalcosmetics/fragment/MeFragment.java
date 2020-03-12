@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.qgyyzs.globalcosmetics.application.MyApplication;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -45,7 +48,6 @@ import com.qgyyzs.globalcosmetics.mvp.iface.CountView;
 import com.qgyyzs.globalcosmetics.mvp.iface.ListStringView;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.KefuPresenter;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.MeCountPresenter;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.ScreenUtils;
 
@@ -61,9 +63,9 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/3/28.
  */
 
-public class MeFragment extends BaseFragment implements View.OnClickListener ,CountView,ListStringView{
-    private MeCountPresenter countPresenter=new MeCountPresenter(this, (RxFragmentActivity) getActivity());
-    private KefuPresenter kefuPresenter=new KefuPresenter(this, (RxFragmentActivity) getActivity());
+public class MeFragment extends BaseFragment implements View.OnClickListener, CountView, ListStringView {
+    private MeCountPresenter countPresenter = new MeCountPresenter(this, (RxFragmentActivity) getActivity());
+    private KefuPresenter kefuPresenter = new KefuPresenter(this, (RxFragmentActivity) getActivity());
     @BindView(R.id.fabu_ll)
     LinearLayout mdailiLl;
     @BindView(R.id.product_ll)
@@ -120,7 +122,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
     private boolean IsPrimary;
 
     private Dialog mDialog;
-    private TextView tv_phone1,tv_phone2,tv_phone3;
+    private TextView tv_phone1, tv_phone2, tv_phone3;
 
     @Override
     protected int getLayout() {
@@ -130,12 +132,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
     @Override
     protected void initView(View view) {
         initDialog();
-        IsPrimary = MyApplication.mSharedPreferences.getBoolean("IsPrimary",false);
+        IsPrimary = MyApplication.mSharedPreferences.getBoolean("IsPrimary", false);
 
-        if(IsPrimary){
+        if (IsPrimary) {
             rlManager.setVisibility(View.VISIBLE);
             vManager.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             rlManager.setVisibility(View.GONE);
             vManager.setVisibility(View.GONE);
         }
@@ -166,9 +168,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
     }
 
     private void getServerVersion() {
-        if (MyApplication.isUpdate==1) {
+        if (MyApplication.isUpdate == 1) {
             red.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             red.setVisibility(View.GONE);
         }
     }
@@ -178,15 +180,17 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
         nickname = MyApplication.mSharedPreferences.getString("RealName", "昵称");//整个页面要用
         mNicknameTextView.setText(nickname);
         if (!TextUtils.isEmpty(headimg)) {
-            Glide.with(getActivity()).load(headimg).error(R.drawable.icon_user_defult).transform(new GlideCircleTransform(getActivity())).placeholder(R.drawable.icon_user_defult)
-                    .into(mImageView);
+            Glide.with(getActivity()).load(headimg)
+                    .apply(RequestOptions.circleCropTransform()
+                            .error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult)
+                    ).into(mImageView);
         }
     }
 
     @Override
     public void onClick(View v) {
         Intent intent;
-        if(!MyApplication.islogin){
+        if (!MyApplication.islogin) {
             LoginActivity.start(getActivity());
             return;
         }
@@ -204,7 +208,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
                     requestPermission(Manifest.permission.CALL_PHONE,
                             getString(R.string.permission_call),
                             1);
-                }else {
+                } else {
                     intent = new Intent();
                     intent.setAction(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" + tv_phone1.getText().toString()));
@@ -219,7 +223,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
                     requestPermission(Manifest.permission.CALL_PHONE,
                             getString(R.string.permission_call),
                             1);
-                }else {
+                } else {
                     intent = new Intent();
                     intent.setAction(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" + tv_phone2.getText().toString()));
@@ -234,7 +238,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
                     requestPermission(Manifest.permission.CALL_PHONE,
                             getString(R.string.permission_call),
                             1);
-                }else {
+                } else {
                     intent = new Intent();
                     intent.setAction(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" + tv_phone3.getText().toString()));
@@ -245,10 +249,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
         }
     }
 
-    @OnClick({R.id.fabu_ll,R.id.product_ll, R.id.perfect_ll, R.id.recruit_ll, R.id.my_circle_rl, R.id.my_trade_rl, R.id.my_object_tv, R.id.my_version_tv, R.id.service_tv,R.id.manager_ll,R.id.my_friends_rl})
+    @OnClick({R.id.fabu_ll, R.id.product_ll, R.id.perfect_ll, R.id.recruit_ll, R.id.my_circle_rl, R.id.my_trade_rl, R.id.my_object_tv, R.id.my_version_tv, R.id.service_tv, R.id.manager_ll, R.id.my_friends_rl})
     public void onViewClicked(View view) {
         Intent intent;
-        if(!MyApplication.islogin){
+        if (!MyApplication.islogin) {
             LoginActivity.start(getActivity());
             return;
         }
@@ -275,10 +279,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
                 startActivity(new Intent(getActivity(), FeedBackActivity.class));
                 break;
             case R.id.my_version_tv://版本介绍
-                intent=new Intent();
-                intent.putExtra("title","版本介绍");
-                intent.putExtra("url", RetrofitUtils.BASE_API+"Home/Version");
-                intent.setClass(getActivity(),WebBaseActivity.class);
+                intent = new Intent();
+                intent.putExtra("title", "版本介绍");
+                intent.putExtra("url", RetrofitUtils.BASE_API + "Home/Version");
+                intent.setClass(getActivity(), WebBaseActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_friends_rl:
@@ -306,9 +310,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
         lp1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 //        dialogWindow.setWindowAnimations(R.style.dialogWindowAnim);
         dialogWindow.setAttributes(lp1);// 加载布局
-        tv_phone1= (TextView) dialogWindow.findViewById(R.id.tv_phone1);
-        tv_phone2= (TextView) dialogWindow.findViewById(R.id.tv_phone2);
-        tv_phone3= (TextView) dialogWindow.findViewById(R.id.tv_phone3);
+        tv_phone1 = (TextView) dialogWindow.findViewById(R.id.tv_phone1);
+        tv_phone2 = (TextView) dialogWindow.findViewById(R.id.tv_phone2);
+        tv_phone3 = (TextView) dialogWindow.findViewById(R.id.tv_phone3);
 
         tv_phone1.setOnClickListener(this);
         tv_phone2.setOnClickListener(this);
@@ -353,32 +357,32 @@ public class MeFragment extends BaseFragment implements View.OnClickListener ,Co
 
     @Override
     public void showCountResult(List<Integer> list) {
-        if(null!=refreshLayout)refreshLayout.finishRefresh();
-        if(null==list)return;
-        mNumTextView.setText(list.get(0)>0?list.get(0)+"":"点击发布");
-        mProxyTextView.setText(list.get(1)>0?list.get(1)+"":"点击发布");
-        mjobNumTv.setText(list.get(2)>0?list.get(2)+"":"点击发布");
-        mGuanzhuNum.setText(list.get(3)>0?list.get(3)+"":"");
-        mCollectNum.setText(list.get(4)>0?list.get(4)+"":"");
+        if (null != refreshLayout) refreshLayout.finishRefresh();
+        if (null == list) return;
+        mNumTextView.setText(list.get(0) > 0 ? list.get(0) + "" : "点击发布");
+        mProxyTextView.setText(list.get(1) > 0 ? list.get(1) + "" : "点击发布");
+        mjobNumTv.setText(list.get(2) > 0 ? list.get(2) + "" : "点击发布");
+        mGuanzhuNum.setText(list.get(3) > 0 ? list.get(3) + "" : "");
+        mCollectNum.setText(list.get(4) > 0 ? list.get(4) + "" : "");
     }
 
     @Override
     public void showStringListResult(List<String> klist) {
-        if(klist!=null) {
+        if (klist != null) {
             tv_phone1.setText(klist.get(0));
-            if(klist.size()>1) {
+            if (klist.size() > 1) {
                 tv_phone2.setVisibility(View.VISIBLE);
                 tv_phone2.setText(klist.get(1));
-            }else{
+            } else {
                 tv_phone2.setVisibility(View.GONE);
             }
-            if(klist.size()>2) {
+            if (klist.size() > 2) {
                 tv_phone3.setVisibility(View.VISIBLE);
                 tv_phone3.setText(klist.get(2));
-            }else{
+            } else {
                 tv_phone3.setVisibility(View.GONE);
             }
-        }else{
+        } else {
             tv_phone1.setText("0571-85885866");
 //            tv_phone2.setText("0571-85885082");
 //            tv_phone3.setText("4009668868");

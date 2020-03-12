@@ -537,8 +537,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         flag=mSharedPreferences.getInt("flag",0);
         isForeground=true;
         MobclickAgent.onResume(this);
-        registerSystemMessageObservers(true);
-        requestSystemMessageUnreadCount();
+
+        if(MyApplication.islogin) {
+            NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, true);
+            registerSystemMessageObservers(true);
+
+            int unreadNum = NIMClient.getService(MsgService.class).getTotalUnreadCount();
+            queryUnreadCount(unreadNum);
+        }
     }
 
     @Override
@@ -589,6 +595,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         return super.onKeyDown(keyCode, event);
     }
 
+
     private StringView fabuView=new StringView() {
         @Override
         public void showStringResult(String result) {
@@ -628,60 +635,40 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
         }
     };
-
     /**
      * 注册/注销系统消息未读数变化
      *
      * @param register
      */
     private void registerSystemMessageObservers(boolean register) {
-        NIMClient.getService(SystemMessageObserver.class)
-                .observeUnreadCountChange(sysMsgUnreadCountChangedObserver, register);
-
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, register);
 
     }
 
-    private Observer<Integer> sysMsgUnreadCountChangedObserver = new Observer<Integer>() {
-        @Override
-        public void onEvent(Integer unreadCount) {
-            // 更新未读数变化
-        }
+    //  创建观察者对象
+    Observer<List<RecentContact>> messageObserver = (Observer<List<RecentContact>>) recentContacts -> {
+        int unreadNum = NIMClient.getService(MsgService.class).getTotalUnreadCount();
+        queryUnreadCount(unreadNum);
     };
 
-    /**
-     * 查询系统消息未读数
-     */
-    private void requestSystemMessageUnreadCount() {
-        final int unreadNum = NIMClient.getService(MsgService.class).getTotalUnreadCount();
+    private void queryUnreadCount(int unreadNum) {
+        LogUtils.e("unreadNum=" + unreadNum);
         if (unreadNum > 0) {
-            unreadLabel.setText(unreadNum>99?"99":String.valueOf(unreadNum));
+            unreadLabel.setText(unreadNum > 99 ? "99" : String.valueOf(unreadNum));
             unreadLabel.setVisibility(View.VISIBLE);
-        }else{
+            try {
+                ShortcutBadger.applyCount(MainActivity.this, unreadNum > 99 ? 99 : unreadNum);
+            } catch (Exception e) {
+            }
+        } else {
+            try {
+                ShortcutBadger.removeCount(MainActivity.this);
+            } catch (Exception e) {
+            }
             unreadLabel.setVisibility(View.GONE);
         }
     }
-
-    //  创建观察者对象
-    Observer<List<RecentContact>> messageObserver =new Observer<List<RecentContact>>() {
-        @Override
-        public void onEvent(List<RecentContact> recentContacts) {
-            int unreadNum = NIMClient.getService(MsgService.class).getTotalUnreadCount();
-            if (unreadNum > 0) {
-                unreadLabel.setText(unreadNum>99?"99":String.valueOf(unreadNum));
-                unreadLabel.setVisibility(View.VISIBLE);
-                try {
-                    ShortcutBadger.applyCount(MainActivity.this, unreadNum > 99 ? 99 : unreadNum);
-                }catch (Exception e){}
-            }else{
-                try {
-                    ShortcutBadger.removeCount(MainActivity.this);
-                }catch (Exception e){}
-                unreadLabel.setVisibility(View.GONE);
-            }
-        }
-    };
 
     private boolean judgePhone() {
         String telRegex = "[1][34578]\\d{9}";

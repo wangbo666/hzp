@@ -16,11 +16,6 @@ import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.qgyyzs.globalcosmetics.R;
-import com.qgyyzs.globalcosmetics.base.BaseModel;
-import com.qgyyzs.globalcosmetics.mvp.model.ProductBean;
-import com.qgyyzs.globalcosmetics.mvp.presenter.TeamProductPresenter;
-import com.qgyyzs.globalcosmetics.mvp.view.ProductListView;
-import com.qgyyzs.globalcosmetics.ui.customview.TeamAdView;
 import com.qgyyzs.globalcosmetics.uikit.api.NimUIKit;
 import com.qgyyzs.globalcosmetics.uikit.api.model.SimpleCallback;
 import com.qgyyzs.globalcosmetics.uikit.api.model.contact.ContactChangedObserver;
@@ -41,12 +36,10 @@ import java.util.List;
  * <p/>
  * Created by huangjun on 2015/3/5.
  */
-public class TeamMessageActivity extends BaseMessageActivity implements ProductListView {
+public class TeamMessageActivity extends BaseMessageActivity {
     private RelativeLayout titlebar;
     private ImageView mIvback, mIvRight;
     private TextView mTvTitle;
-    private TeamAdView teamAdView;
-    private TeamProductPresenter presenter = new TeamProductPresenter(this);
 
     // model
     private Team team;
@@ -75,13 +68,10 @@ public class TeamMessageActivity extends BaseMessageActivity implements ProductL
     }
 
     protected void findViews() {
-        invalidTeamTipView = findView(R.id.invalid_team_tip);
-        invalidTeamTipText = findView(R.id.invalid_team_text);
         mIvback = findView(R.id.back);
         mTvTitle = findView(R.id.title_text);
         mIvRight = findView(R.id.right_img);
         titlebar = findView(R.id.titlebar);
-        teamAdView = findView(R.id.teamView);
         mIvback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,15 +95,11 @@ public class TeamMessageActivity extends BaseMessageActivity implements ProductL
 //        StatusBarUtil.immersive(this);
 
         registerTeamUpdateObserver(true);
-        presenter.getProduct(sessionId);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (presenter != null) {
-            presenter.detachView();
-        }
 
         registerTeamUpdateObserver(false);
     }
@@ -283,46 +269,4 @@ public class TeamMessageActivity extends BaseMessageActivity implements ProductL
         }
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void closeLoading() {
-
-    }
-
-    @Override
-    public void onErrorCode(BaseModel model) {
-
-    }
-
-    @Override
-    public void showProductListResult(List<ProductBean> list, int page) {
-        if (TeamMessageActivity.this == null) return;
-        if (list == null) return;
-        if (teamAdView != null) teamAdView.setViews(this, list);
-        if (teamAdView != null) teamAdView.startFlipping();
-    }
-
-    @Override
-    public void showLoadingLayout() {
-
-    }
-
-    @Override
-    public void showSuccessLayout() {
-
-    }
-
-    @Override
-    public void showErrorLayout() {
-
-    }
-
-    @Override
-    public boolean isVisable() {
-        return false;
-    }
 }

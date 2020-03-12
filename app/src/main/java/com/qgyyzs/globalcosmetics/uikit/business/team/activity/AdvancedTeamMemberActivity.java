@@ -12,7 +12,6 @@ import com.netease.nimlib.sdk.team.constant.TeamMemberType;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.qgyyzs.globalcosmetics.R;
-import com.qgyyzs.globalcosmetics.ui.activity.ChatUserdetailActivity;
 import com.qgyyzs.globalcosmetics.uikit.api.NimUIKit;
 import com.qgyyzs.globalcosmetics.uikit.api.model.SimpleCallback;
 import com.qgyyzs.globalcosmetics.uikit.api.model.user.UserInfoObserver;
@@ -294,12 +293,12 @@ public class AdvancedTeamMemberActivity extends UI implements TAdapterDelegate,
 
     @Override
     public void onHeadImageViewClick(String account) {
-        String fuserid = account.substring(6, account.length());
-        Intent intent = new Intent(this, ChatUserdetailActivity.class);
-        intent.putExtra("tid",teamId);
-        intent.putExtra("isAdmin",isSelfAdmin||isSelfManager?true:false);
-        intent.putExtra("fuserid", fuserid);
-        startActivity(intent);
+//        String fuserid = account.substring(6, account.length());
+//        Intent intent = new Intent(this, ChatUserdetailActivity.class);
+//        intent.putExtra("tid",teamId);
+//        intent.putExtra("isAdmin",isSelfAdmin||isSelfManager?true:false);
+//        intent.putExtra("fuserid", fuserid);
+//        startActivity(intent);
 //        AdvancedTeamMemberInfoActivity.startActivityForResult(AdvancedTeamMemberActivity.this, account, teamId);
     }
 

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.CompanyDetialActivity;
 import com.qgyyzs.globalcosmetics.activity.MedicineDetailActivity;
@@ -44,13 +45,17 @@ public class CompanyCenterAdapter extends CommonAdapter<CompanyCenterBean.JsonDa
         if (TextUtils.isEmpty(companyBean.getProlist().get(0).getImage().split("\\|")[0])) {
             Image1.setImageResource(R.mipmap.medicin_defult);
         } else {
-            Glide.with(mContext).load(companyBean.getProlist().get(0).getImage().split("\\|")[0]).error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult).into(Image1);
+            Glide.with(mContext).load(companyBean.getProlist().get(0).getImage().split("\\|")[0])
+                    .apply(new RequestOptions()
+                    .error(R.mipmap.medicin_defult)
+                    .placeholder(R.mipmap.medicin_defult)).into(Image1);
         }
         name1.setText(TextUtils.isEmpty(companyBean.getProlist().get(0).getSubject())?"":companyBean.getProlist().get(0).getSubject());
         if (TextUtils.isEmpty(companyBean.getProlist().get(1).getImage().split("\\|")[0])) {
             Image2.setImageResource(R.mipmap.medicin_defult);
         } else {
-            Glide.with(mContext).load(companyBean.getProlist().get(1).getImage().split("\\|")[0]).error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult).into(Image2);
+            Glide.with(mContext).load(companyBean.getProlist().get(1).getImage().split("\\|")[0])
+                    .apply(new RequestOptions().error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult)).into(Image2);
         }
         name2.setText(TextUtils.isEmpty(companyBean.getProlist().get(1).getSubject())?"":companyBean.getProlist().get(1).getSubject());
 
@@ -59,7 +64,8 @@ public class CompanyCenterAdapter extends CommonAdapter<CompanyCenterBean.JsonDa
             if (TextUtils.isEmpty(companyBean.getProlist().get(2).getImage().split("\\|")[0])) {
                 Image3.setImageResource(R.mipmap.medicin_defult);
             } else {
-                Glide.with(mContext).load(companyBean.getProlist().get(2).getImage().split("\\|")[0]).error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult).into(Image3);
+                Glide.with(mContext).load(companyBean.getProlist().get(2).getImage().split("\\|")[0])
+                        .apply(new RequestOptions().error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult)).into(Image3);
             }
             name3.setText(TextUtils.isEmpty(companyBean.getProlist().get(2).getSubject())?"":companyBean.getProlist().get(2).getSubject());
         }else{

@@ -18,9 +18,9 @@ import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
 import com.netease.nimlib.sdk.team.model.CreateTeamResult;
 import com.netease.nimlib.sdk.team.model.Team;
+import com.qgyyzs.globalcosmetics.MainActivity;
 import com.qgyyzs.globalcosmetics.nim.DemoCache;
 import com.qgyyzs.globalcosmetics.nim.session.SessionHelper;
-import com.qgyyzs.globalcosmetics.ui.activity.MainActivity;
 import com.qgyyzs.globalcosmetics.uikit.business.team.helper.TeamHelper;
 import com.qgyyzs.globalcosmetics.uikit.common.ui.dialog.DialogMaker;
 

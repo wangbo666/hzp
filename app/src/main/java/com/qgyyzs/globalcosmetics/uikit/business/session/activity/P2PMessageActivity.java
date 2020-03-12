@@ -3,7 +3,6 @@ package com.qgyyzs.globalcosmetics.uikit.business.session.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,11 +19,6 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.CustomNotification;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.qgyyzs.globalcosmetics.R;
-import com.qgyyzs.globalcosmetics.base.BaseModel;
-import com.qgyyzs.globalcosmetics.mvp.model.UserBean;
-import com.qgyyzs.globalcosmetics.mvp.presenter.JobDetailPresenter;
-import com.qgyyzs.globalcosmetics.mvp.view.JobDetailView;
-import com.qgyyzs.globalcosmetics.nim.session.extension.ProductAttachment;
 import com.qgyyzs.globalcosmetics.uikit.api.NimUIKit;
 import com.qgyyzs.globalcosmetics.uikit.api.model.contact.ContactChangedObserver;
 import com.qgyyzs.globalcosmetics.uikit.api.model.main.OnlineStateChangeObserver;
@@ -49,8 +43,7 @@ import java.util.Set;
  * <p/>
  * Created by huangjun on 2015/2/1.
  */
-public class P2PMessageActivity extends BaseMessageActivity implements JobDetailView {
-    private JobDetailPresenter jobDetailPresenter = new JobDetailPresenter(this);
+public class P2PMessageActivity extends BaseMessageActivity{
     private TextView TvFlag;
     private RelativeLayout titlebar;
     private TextView mTvTile;
@@ -65,20 +58,6 @@ public class P2PMessageActivity extends BaseMessageActivity implements JobDetail
         intent.putExtra(Extras.EXTRA_CUSTOMIZATION, customization);
         if (anchor != null) {
             intent.putExtra(Extras.EXTRA_ANCHOR, anchor);
-        }
-        Id = contactId;
-        intent.setClass(context, P2PMessageActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        context.startActivity(intent);
-    }
-
-    public static void start(Context context, String contactId, SessionCustomization customization, ProductAttachment anchor) {
-        Intent intent = new Intent();
-        intent.putExtra(Extras.EXTRA_ACCOUNT, contactId);
-        intent.putExtra(Extras.EXTRA_CUSTOMIZATION, customization);
-        if (anchor != null) {
-            intent.putExtra(Extras.EXTRA_PRODUCT, anchor);
         }
         Id = contactId;
         intent.setClass(context, P2PMessageActivity.class);
@@ -103,8 +82,6 @@ public class P2PMessageActivity extends BaseMessageActivity implements JobDetail
         super.onDestroy();
         registerObservers(false);
         registerOnlineStateChangeListener(false);
-        if (jobDetailPresenter != null)
-            jobDetailPresenter.detachView();
     }
 
     @Override
@@ -263,14 +240,6 @@ public class P2PMessageActivity extends BaseMessageActivity implements JobDetail
         titlebar = findView(R.id.titlebar);
 //        StatusBarUtil.immersive(this);
         LogUtils.e("sessionId" + Id);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (TextUtils.isEmpty(Id)) return;
-                jobDetailPresenter.getJobDetail(getJsonString());
-            }
-        }).start();
-
 
         ImageView iright = (ImageView) findViewById(R.id.right_img);
         iback.setOnClickListener(new View.OnClickListener() {
@@ -297,39 +266,4 @@ public class P2PMessageActivity extends BaseMessageActivity implements JobDetail
             }
         });
     }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void closeLoading() {
-
-    }
-
-    @Override
-    public void onErrorCode(BaseModel model) {
-
-    }
-
-    public String getJsonString() {
-        JSONObject jsonObject = new JSONObject();
-        if (!TextUtils.isEmpty(Id)) jsonObject.put("userid", Id.substring(6, Id.length()));
-        return jsonObject.toString();
-    }
-
-    @Override
-    public void showUserResult(UserBean bean) {
-        if (null == bean) return;
-
-        TvFlag.setVisibility(View.VISIBLE);
-        if (bean.PrimaryFlag == 1) {
-            TvFlag.setText("VIP用户");
-        } else {
-            TvFlag.setText("未认证用户");
-        }
-    }
-
-
 }

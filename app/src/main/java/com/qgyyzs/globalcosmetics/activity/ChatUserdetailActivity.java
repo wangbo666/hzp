@@ -6,10 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.request.RequestOptions;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.uinfo.UserService;
 import com.qgyyzs.globalcosmetics.R;
@@ -36,7 +41,6 @@ import com.qgyyzs.globalcosmetics.mvp.ipresenter.AddFriendPresenter;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.SimpleUserinfoPresenter;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.UpdateFriendStatePresenter;
 import com.qgyyzs.globalcosmetics.nim.session.SessionHelper;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.ScreenUtils;
 import com.qgyyzs.globalcosmetics.utils.StatusBarUtil;
@@ -52,7 +56,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ChatUserdetailActivity extends BaseActivity implements UserInfoView{
+public class ChatUserdetailActivity extends BaseActivity implements UserInfoView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_right)
@@ -115,7 +119,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
     private ArrayAdapter<String> mArrayAdapter;
 
 
-    private SimpleUserinfoPresenter userInfoPresenter=new SimpleUserinfoPresenter(this,this);
+    private SimpleUserinfoPresenter userInfoPresenter = new SimpleUserinfoPresenter(this, this);
     private AddFriendPresenter addFriendPresenter;
     private UpdateFriendStatePresenter updateFriendStatePresenter;
 
@@ -127,11 +131,11 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
     @Override
     public void initData() {
         mSharedPreferences = getSharedPreferences(MyApplication.USERSPINFO, Context.MODE_PRIVATE);
-        userid=mSharedPreferences.getString("userid","");
+        userid = mSharedPreferences.getString("userid", "");
         touserid = getIntent().getStringExtra("fuserid");
 
-        addFriendPresenter=new AddFriendPresenter(addView,this);
-        updateFriendStatePresenter=new UpdateFriendStatePresenter(updateView,this);
+        addFriendPresenter = new AddFriendPresenter(addView, this);
+        updateFriendStatePresenter = new UpdateFriendStatePresenter(updateView, this);
     }
 
     @Override
@@ -147,7 +151,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
     @Override
     public void initView() {
         StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this,toolbar);
+        StatusBarUtil.setPaddingSmart(this, toolbar);
         mDialog = new Dialog(this);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialog.setContentView(R.layout.kefu_layout);
@@ -168,7 +172,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
                     requestPermission(Manifest.permission.CALL_PHONE,
                             getString(R.string.permission_call),
                             1);
-                }else {
+                } else {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" + kefuList.get(position)));
@@ -178,7 +182,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
         });
     }
 
-    @OnClick({R.id.tv_right, R.id.my_circle_rl, R.id.product_rl, R.id.isopen_img, R.id.kehu_rl, R.id.send_call_tv, R.id.send_msg_tv, R.id.add_friend_tv,R.id.remake_ll})
+    @OnClick({R.id.tv_right, R.id.my_circle_rl, R.id.product_rl, R.id.isopen_img, R.id.kehu_rl, R.id.send_call_tv, R.id.send_msg_tv, R.id.add_friend_tv, R.id.remake_ll})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -189,27 +193,27 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
                 intent.putExtra("linktel", linktel);//联系电话
                 intent.putExtra("isopen", isopen);// 是否公开
                 intent.putExtra("state", type);//黑名单
-                intent.putExtra("nimid",nimid);
+                intent.putExtra("nimid", nimid);
                 startActivity(intent);
                 break;
             case R.id.remake_ll:
-                intent=new Intent(this,UpdateRemakeActivity.class);
-                intent.putExtra("userid",touserid);
-                intent.putExtra("nimid",nimid);
-                intent.putExtra("alias",alias);
+                intent = new Intent(this, UpdateRemakeActivity.class);
+                intent.putExtra("userid", touserid);
+                intent.putExtra("nimid", nimid);
+                intent.putExtra("alias", alias);
                 startActivityForResult(intent, 001);
                 break;
             case R.id.my_circle_rl:
                 intent = new Intent(this, MyProxyActivity.class);
                 intent.putExtra("userid", touserid);
-                intent.putExtra("username",tousername);
+                intent.putExtra("username", tousername);
                 intent.putExtra("nickname", nickname);
                 startActivity(intent);
                 break;
             case R.id.product_rl:
                 intent = new Intent(this, FriendProductActivity.class);
                 intent.putExtra("userid", touserid);
-                intent.putExtra("username",tousername);
+                intent.putExtra("username", tousername);
                 intent.putExtra("nickname", nickname);
                 startActivity(intent);
                 break;
@@ -217,19 +221,19 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
                 if (flog) {
                     mIsopenImg.setBackgroundResource(R.mipmap.close_icon);
                     flog = false;//不是我的客户
-                    state=1;
+                    state = 1;
                 } else {
                     mIsopenImg.setBackgroundResource(R.mipmap.open_icon);
                     flog = true;//我的客户
-                    state=2;
+                    state = 2;
                 }
                 updateFriendStatePresenter.updateState();
                 break;
             case R.id.kehu_rl:
                 break;
             case R.id.send_call_tv:
-                LogUtils.e("Tel"+linktel);
-                if(!userid.equals(touserid)) {
+                LogUtils.e("Tel" + linktel);
+                if (!userid.equals(touserid)) {
                     if (isopen) {
                         str = null;
                         kefuList.clear();
@@ -247,7 +251,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
                     } else {
                         ToastUtil.showToast(this, "对方未公开联系方式", true);
                     }
-                }else{
+                } else {
                     ToastUtil.showToast(this, "不能给自己打电话哦", true);
                 }
                 break;
@@ -256,14 +260,14 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
                     startActivity(new Intent(ChatUserdetailActivity.this, LoginActivity.class));
                     return;
                 } else {
-                    if(nimid!=null) {
-                        if(!userid.equals(touserid)) {
+                    if (nimid != null) {
+                        if (!userid.equals(touserid)) {
                             SessionHelper.startP2PSession(ChatUserdetailActivity.this, nimid);
-                        }else{
-                            ToastUtil.showToast(this,"不能给自己发消息哦",true);
+                        } else {
+                            ToastUtil.showToast(this, "不能给自己发消息哦", true);
                         }
-                    }else{
-                        ToastUtil.showToast(this,"该用户未公开联系方式",true);
+                    } else {
+                        ToastUtil.showToast(this, "该用户未公开联系方式", true);
                     }
                 }
                 break;
@@ -277,10 +281,10 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
         }
     }
 
-    private StringView updateView=new StringView() {
+    private StringView updateView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
             EventBus.getDefault().post(new AnyEventFriendList());
         }
@@ -327,7 +331,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
 
     @Override
     public void showUserResult(UserinfoBean bean) {
-        if(bean==null) {
+        if (bean == null) {
             mAddFriendTv.setText("加入通讯录");
             type = 5;
             return;
@@ -335,27 +339,27 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
         headimg = bean.getJsonData().getHeadImg();
         nickname = bean.getJsonData().getRealName();
         realname = bean.getJsonData().getRealName();
-        tousername=bean.getJsonData().getPcUsername();
+        tousername = bean.getJsonData().getPcUsername();
         linktel = bean.getJsonData().getLinkTel();
         isopen = bean.getJsonData().getIsOpen();
-        resplace=bean.getJsonData().getProvince()+(TextUtils.isEmpty(bean.getJsonData().getCity())?"":","+bean.getJsonData().getCity());
+        resplace = bean.getJsonData().getProvince() + (TextUtils.isEmpty(bean.getJsonData().getCity()) ? "" : "," + bean.getJsonData().getCity());
         company = bean.getJsonData().getCompany();
         shenfen = bean.getJsonData().getShenFen();
-        nimid=bean.getJsonData().getNimID();
-        alias=bean.getJsonData().getAlias();
-        if(!TextUtils.isEmpty(nimid)) {
+        nimid = bean.getJsonData().getNimID();
+        alias = bean.getJsonData().getAlias();
+        if (!TextUtils.isEmpty(nimid)) {
             List<String> list = new ArrayList<>();
             list.add(nimid);
             NIMClient.getService(UserService.class).fetchUserInfo(list);
         }
         type = bean.getJsonData().getState();
-        mTvRemake.setText(TextUtils.isEmpty(bean.getJsonData().getAlias())?"":bean.getJsonData().getAlias());
-        mKehuRl.setVisibility(type==1?View.VISIBLE:View.GONE);
-        mLinearRemake.setVisibility(type==1?View.VISIBLE:View.GONE);
-        if (TextUtils.isEmpty(realname)||nickname.equals("null")) {
-            mUserRealname.setText("用户"+bean.getJsonData().getId());
-            toolbar.setTitle("用户"+bean.getJsonData().getId());
-        }else{
+        mTvRemake.setText(TextUtils.isEmpty(bean.getJsonData().getAlias()) ? "" : bean.getJsonData().getAlias());
+        mKehuRl.setVisibility(type == 1 ? View.VISIBLE : View.GONE);
+        mLinearRemake.setVisibility(type == 1 ? View.VISIBLE : View.GONE);
+        if (TextUtils.isEmpty(realname) || nickname.equals("null")) {
+            mUserRealname.setText("用户" + bean.getJsonData().getId());
+            toolbar.setTitle("用户" + bean.getJsonData().getId());
+        } else {
             mUserRealname.setText(realname);
             toolbar.setTitle(nickname);
         }
@@ -370,8 +374,13 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
         }
         if (!TextUtils.isEmpty(headimg)) {
             try {
-                Glide.with(ChatUserdetailActivity.this).load(headimg).error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult).transform(new GlideCircleTransform(ChatUserdetailActivity.this)).into(mUserImg);
-            }catch (Exception e){}
+                Glide.with(ChatUserdetailActivity.this).load(headimg)
+                        .apply(RequestOptions.circleCropTransform()
+                                .error(R.drawable.icon_user_defult)
+                                .placeholder(R.drawable.icon_user_defult))
+                        .into(mUserImg);
+            } catch (Exception e) {
+            }
         } else {
             mUserImg.setImageResource(R.mipmap.icon_user_defult);
         }
@@ -382,7 +391,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
         } else if (type == 4) {
             mKehuRl.setVisibility(View.GONE);
             mLinearRemake.setVisibility(View.GONE);
-        }else if(type==1) {
+        } else if (type == 1) {
             mKehuRl.setVisibility(View.VISIBLE);
             mLinearRemake.setVisibility(View.VISIBLE);
             mAddFriendTv.setText("已加入");
@@ -397,13 +406,13 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
         }
     }
 
-    private StringView addView=new StringView() {
+    private StringView addView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
             mAddFriendTv.setText("已加入");
-            ToastUtil.showToast(ChatUserdetailActivity.this,result,true);
+            ToastUtil.showToast(ChatUserdetailActivity.this, result, true);
         }
 
         @Override
@@ -423,7 +432,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
                 jsonObject.put("userid", userid);
                 jsonObject.put("f_userid", touserid);
                 jsonObject.toString();
-                LogUtils.e( jsonObject.toString());
+                LogUtils.e(jsonObject.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -451,7 +460,7 @@ public class ChatUserdetailActivity extends BaseActivity implements UserInfoView
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("userid", touserid);//当前页码
-            jsonObject.put("f_userid",userid);
+            jsonObject.put("f_userid", userid);
             LogUtils.e(jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();

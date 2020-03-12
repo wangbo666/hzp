@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.uinfo.UserService;
@@ -34,7 +35,6 @@ import com.qgyyzs.globalcosmetics.mvp.iface.StringView;
 import com.qgyyzs.globalcosmetics.mvp.iface.UserListView;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.ChildAccountDelPresenter;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.ChildAccountListPresenter;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.StatusBarUtil;
 
@@ -248,7 +248,9 @@ public class ChildAccountListActivity extends BaseActivity implements UserListVi
             if(TextUtils.isEmpty(biduserBean.getHeadImg())) {
                 mUserHead.setImageResource(R.drawable.icon_user_defult);
             }else{
-                Glide.with(mContext).load(biduserBean.getHeadImg()).error(R.drawable.icon_user_defult).transform(new GlideCircleTransform(mContext))
+                Glide.with(mContext).load(biduserBean.getHeadImg())
+                        .apply(RequestOptions.circleCropTransform()
+                        .error(R.drawable.icon_user_defult))
                         .into(mUserHead);
             }
             viewHolder.getView(R.id.content).setOnClickListener(new View.OnClickListener() {

@@ -148,7 +148,7 @@ class NimSDKOptionConfig {
         config.notificationSmallIconId = R.drawable.ic_logo;
         config.notificationColor = DemoCache.getContext().getResources().getColor(R.color.main_color);
         // 通知铃声的uri字符串
-        config.notificationSound = "android.resource://com.yxkj.medicine/raw/msg";
+        config.notificationSound = "android.resource://com.qgyyzs.globalcosmetics/raw/msg";
         config.notificationFolded = true;
         // 呼吸灯配置
         config.ledARGB = Color.GREEN;

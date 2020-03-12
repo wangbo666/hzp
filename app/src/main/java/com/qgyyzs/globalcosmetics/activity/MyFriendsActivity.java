@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 import com.qgyyzs.globalcosmetics.application.MyApplication;
+import com.qgyyzs.globalcosmetics.nim.contact.activity.AddFriendActivity;
 import com.qgyyzs.globalcosmetics.utils.IndexBar.widget.IndexBar;
 import com.qgyyzs.globalcosmetics.utils.suspension.SuspensionDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -33,8 +38,6 @@ import com.qgyyzs.globalcosmetics.mvp.iface.FriendView;
 import com.qgyyzs.globalcosmetics.mvp.iface.StringView;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.DelFriendPresenter;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.MyFriendPresenter;
-import com.qgyyzs.globalcosmetics.nim.activity.AddContactActivity;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.StatusBarUtil;
 import com.qgyyzs.globalcosmetics.utils.ToastUtil;
@@ -54,8 +57,8 @@ import butterknife.BindView;
  * Created by Administrator on 2017/11/22 0022.
  */
 
-public class MyFriendsActivity extends BaseActivity implements FriendView{
-    private MyFriendPresenter presenter=new MyFriendPresenter(this,this);
+public class MyFriendsActivity extends BaseActivity implements FriendView {
+    private MyFriendPresenter presenter = new MyFriendPresenter(this, this);
     private DelFriendPresenter delFriendPresenter;
     private static final String INDEX_STRING_TOP = "↑";
     @BindView(R.id.toolbar)
@@ -72,8 +75,8 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
     private LinearLayoutManager mManager;
     private SuspensionDecoration mDecoration;
     private FriendAdapter mAdapter;
-    private List<MyFriendBean> friendBeanList=new ArrayList<>();
-    private String userid,f_userid;
+    private List<MyFriendBean> friendBeanList = new ArrayList<>();
+    private String userid, f_userid;
     private SharedPreferences mSharedPreferences;
 
     @Override
@@ -84,7 +87,7 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
     @Override
     public void initView() {
         StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this,toolbar);
+        StatusBarUtil.setPaddingSmart(this, toolbar);
         EventBus.getDefault().register(this);
         mSharedPreferences = getSharedPreferences(MyApplication.USERSPINFO, Context.MODE_PRIVATE);
         userid = mSharedPreferences.getString("userid", "");
@@ -109,9 +112,9 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 friendBeanList.clear();
-                friendBeanList.add((MyFriendBean) new MyFriendBean("","","","添加好友").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
-                friendBeanList.add((MyFriendBean) new MyFriendBean("","","","我的客户").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
-                friendBeanList.add((MyFriendBean) new MyFriendBean("","","","黑名单").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
+                friendBeanList.add((MyFriendBean) new MyFriendBean("", "", "", "添加好友").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
+                friendBeanList.add((MyFriendBean) new MyFriendBean("", "", "", "我的客户").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
+                friendBeanList.add((MyFriendBean) new MyFriendBean("", "", "", "黑名单").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
                 mAdapter.notifyDataSetChanged();
                 presenter.getFriendList();
             }
@@ -119,18 +122,18 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoonEvent(AnyEventFriendList friendList){
-     new Thread(new Runnable() {
-         @Override
-         public void run() {
-             refreshLayout.autoRefresh();
-         }
-     }) .start();
+    public void onMoonEvent(AnyEventFriendList friendList) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.autoRefresh();
+            }
+        }).start();
     }
 
     @Override
     public void initData() {
-        delFriendPresenter=new DelFriendPresenter(delView,this);
+        delFriendPresenter = new DelFriendPresenter(delView, this);
         recyclerView.setLayoutManager(mManager = new LinearLayoutManager(this));
 
         mAdapter = new FriendAdapter(this, friendBeanList);
@@ -177,13 +180,13 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
 
     @Override
     public void showFriendResult(MyFriend bean) {
-        if(refreshLayout!=null)refreshLayout.finishRefresh();
+        if (refreshLayout != null) refreshLayout.finishRefresh();
         mIndexBar.setVisibility(View.VISIBLE);
-        if(bean==null||bean.getJsonData()==null)return;
+        if (bean == null || bean.getJsonData() == null) return;
 
-        for (int i=0;i<bean.getJsonData().size();i++) {
-            friendBeanList.add(new MyFriendBean(bean.getJsonData().get(i).getF_UserId()+"",bean.getJsonData().get(i).getUserInfo().getNimID(),bean.getJsonData().get(i).getUserInfo().getHeadImg(),
-                    TextUtils.isEmpty(bean.getJsonData().get(i).getAlias())?bean.getJsonData().get(i).getUserInfo().getRealName():bean.getJsonData().get(i).getAlias()));
+        for (int i = 0; i < bean.getJsonData().size(); i++) {
+            friendBeanList.add(new MyFriendBean(bean.getJsonData().get(i).getF_UserId() + "", bean.getJsonData().get(i).getUserInfo().getNimID(), bean.getJsonData().get(i).getUserInfo().getHeadImg(),
+                    TextUtils.isEmpty(bean.getJsonData().get(i).getAlias()) ? bean.getJsonData().get(i).getUserInfo().getRealName() : bean.getJsonData().get(i).getAlias()));
         }
         mIndexBar.setmSourceDatas(friendBeanList)
                 .invalidate();
@@ -207,27 +210,27 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
             TextView tvName = viewHolder.getView(R.id.tvName);
             ImageView imageView = viewHolder.getView(R.id.ivAvatar);
             LinearLayout content = viewHolder.getView(R.id.content);
-            Button benDel=viewHolder.getView(R.id.btnDel);
+            Button benDel = viewHolder.getView(R.id.btnDel);
             tvName.setText(TextUtils.isEmpty(item.getNickName()) ? "未命名" : item.getNickName());
             content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(position==0) {
-                        startActivity(new Intent(MyFriendsActivity.this,AddContactActivity.class));
-                    }else if(position==1){
+                    if (position == 0) {
+                        startActivity(new Intent(MyFriendsActivity.this, AddContactActivity.class));
+                    } else if (position == 1) {
                         Intent intent = new Intent(mContext, UserKehuActivity.class);
                         intent.putExtra("title", "我的客户");
                         intent.putExtra("state", 2);
                         startActivity(intent);
-                    }else if(position==2){
+                    } else if (position == 2) {
                         Intent intent = new Intent(mContext, UserKehuActivity.class);
                         intent.putExtra("title", "黑名单");
                         intent.putExtra("state", 4);
                         startActivity(intent);
-                    }else{
-                        Intent intent=new Intent(MyFriendsActivity.this,ChatUserdetailActivity.class);
-                        intent.putExtra("type",1);
-                        intent.putExtra("fuserid",item.getUserid()+"");
+                    } else {
+                        Intent intent = new Intent(MyFriendsActivity.this, ChatUserdetailActivity.class);
+                        intent.putExtra("type", 1);
+                        intent.putExtra("fuserid", item.getUserid() + "");
                         startActivity(intent);
                     }
                 }
@@ -243,31 +246,34 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
                             .setmSourceDatas(mDatas)//设置数据
                             .invalidate();
                     notifyDataSetChanged();
-                    f_userid=item.getUserid();
+                    f_userid = item.getUserid();
                     delFriendPresenter.delFriend();
                 }
             });
-            if(position>2) {
+            if (position > 2) {
                 benDel.setVisibility(View.VISIBLE);
                 if (TextUtils.isEmpty(item.getHeadUrl())) {
                     imageView.setImageResource(R.mipmap.icon_user_defult);
                 } else {
-                    Glide.with(mContext).load(item.getHeadUrl()).error(R.mipmap.icon_user_defult).transform(new GlideCircleTransform(mContext)).placeholder(R.mipmap.icon_user_defult).into(imageView);
+                    Glide.with(mContext).load(item.getHeadUrl()).apply(RequestOptions.circleCropTransform()
+                            .error(R.mipmap.icon_user_defult)
+                            .placeholder(R.mipmap.icon_user_defult))
+                            .into(imageView);
                 }
-            }else{
+            } else {
                 benDel.setVisibility(View.GONE);
-                if(position==0) {
+                if (position == 0) {
                     imageView.setImageResource(R.mipmap.ic_addfriend);
-                }else if(position==1){
+                } else if (position == 1) {
                     imageView.setImageResource(R.mipmap.ic_mykehu);
-                }else if(position==2){
+                } else if (position == 2) {
                     imageView.setImageResource(R.mipmap.ic_myblack);
                 }
             }
         }
     }
 
-    private StringView delView=new StringView() {
+    private StringView delView = new StringView() {
         @Override
         public void showStringResult(String result) {
             if (!TextUtils.isEmpty(result)) {
@@ -292,7 +298,7 @@ public class MyFriendsActivity extends BaseActivity implements FriendView{
                 jsonObject.put("userid", userid);
                 jsonObject.put("f_userid", f_userid);
                 jsonObject.toString();
-                LogUtils.e( jsonObject.toString());
+                LogUtils.e(jsonObject.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

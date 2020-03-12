@@ -25,30 +25,26 @@ import com.netease.nimlib.sdk.robot.model.RobotAttachment;
 import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.qgyyzs.globalcosmetics.R;
+import com.qgyyzs.globalcosmetics.activity.ChatUserdetailActivity;
 import com.qgyyzs.globalcosmetics.nim.DemoCache;
 import com.qgyyzs.globalcosmetics.nim.contact.activity.RobotProfileActivity;
 import com.qgyyzs.globalcosmetics.nim.session.activity.AckMsgInfoActivity;
 import com.qgyyzs.globalcosmetics.nim.session.activity.MessageHistoryActivity;
 import com.qgyyzs.globalcosmetics.nim.session.activity.MessageInfoActivity;
-import com.qgyyzs.globalcosmetics.nim.session.extension.CompanyAttachment;
 import com.qgyyzs.globalcosmetics.nim.session.extension.CustomAttachParser;
 import com.qgyyzs.globalcosmetics.nim.session.extension.CustomAttachment;
-import com.qgyyzs.globalcosmetics.nim.session.extension.ProductAttachment;
 import com.qgyyzs.globalcosmetics.nim.session.extension.RTSAttachment;
 import com.qgyyzs.globalcosmetics.nim.session.extension.RedPacketAttachment;
 import com.qgyyzs.globalcosmetics.nim.session.extension.SnapChatAttachment;
 import com.qgyyzs.globalcosmetics.nim.session.extension.StickerAttachment;
 import com.qgyyzs.globalcosmetics.nim.session.search.SearchMessageActivity;
 import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderAVChat;
-import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderCompany;
 import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderDefCustom;
 import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderFile;
-import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderProduct;
 import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderRTS;
 import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderSnapChat;
 import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderSticker;
 import com.qgyyzs.globalcosmetics.nim.session.viewholder.MsgViewHolderTip;
-import com.qgyyzs.globalcosmetics.ui.activity.ChatUserdetailActivity;
 import com.qgyyzs.globalcosmetics.uikit.api.NimUIKit;
 import com.qgyyzs.globalcosmetics.uikit.api.model.recent.RecentCustomization;
 import com.qgyyzs.globalcosmetics.uikit.api.model.session.SessionCustomization;
@@ -64,7 +60,6 @@ import com.qgyyzs.globalcosmetics.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.qgyyzs.globalcosmetics.uikit.common.ui.popupmenu.NIMPopupMenu;
 import com.qgyyzs.globalcosmetics.uikit.common.ui.popupmenu.PopupMenuItem;
 import com.qgyyzs.globalcosmetics.uikit.common.util.sys.TimeUtil;
-import com.qgyyzs.globalcosmetics.uikit.impl.NimUIKitImpl;
 import com.qgyyzs.globalcosmetics.uikit.impl.cache.TeamDataCache;
 import com.qgyyzs.globalcosmetics.uikit.impl.customization.DefaultRecentCustomization;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
@@ -124,9 +119,9 @@ public class SessionHelper {
         startP2PSession(context, account, null);
     }
 
-    public static void startP2PSessions(Context context, String account, ProductAttachment attachment) {
-        NimUIKitImpl.startP2PSessions(context, account, attachment);
-    }
+//    public static void startP2PSessions(Context context, String account, ProductAttachment attachment) {
+//        NimUIKitImpl.startP2PSessions(context, account, attachment);
+//    }
 
     public static void startP2PSession(Context context, String account, IMMessage anchor) {
         if (!DemoCache.getAccount().equals(account)) {
@@ -502,8 +497,8 @@ public class SessionHelper {
         NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
         NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
         NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
-        NimUIKit.registerMsgItemViewHolder(ProductAttachment.class, MsgViewHolderProduct.class);
-        NimUIKit.registerMsgItemViewHolder(CompanyAttachment.class, MsgViewHolderCompany.class);
+//        NimUIKit.registerMsgItemViewHolder(ProductAttachment.class, MsgViewHolderProduct.class);
+//        NimUIKit.registerMsgItemViewHolder(CompanyAttachment.class, MsgViewHolderCompany.class);
         NimUIKit.registerMsgItemViewHolder(RTSAttachment.class, MsgViewHolderRTS.class);
         NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
 //        registerRedPacketViewHolder();

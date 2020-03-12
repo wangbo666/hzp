@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -29,7 +30,6 @@ import com.qgyyzs.globalcosmetics.customview.EmptyRecyclerView;
 import com.qgyyzs.globalcosmetics.mvp.iface.LinkView;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.LinkManPresenter;
 import com.qgyyzs.globalcosmetics.nim.session.SessionHelper;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.StatusBarUtil;
 
@@ -160,7 +160,8 @@ public class LinkListActivity extends BaseActivity implements LinkView{
             if(TextUtils.isEmpty(biduserBean.getHeadImg())) {
                 mUserHead.setImageResource(R.drawable.icon_user_defult);
             }else{
-                Glide.with(mContext).load(biduserBean.getHeadImg()).error(R.drawable.icon_user_defult).transform(new GlideCircleTransform(mContext))
+                Glide.with(mContext).load(biduserBean.getHeadImg()).apply(RequestOptions.circleCropTransform()
+                        .error(R.drawable.icon_user_defult))
                         .into(mUserHead);
             }
 

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.CompanyDetialActivity;
 import com.qgyyzs.globalcosmetics.activity.LoginActivity;
@@ -57,7 +58,8 @@ public class HomeCompanyAdapter extends MyBaseAdapter<CompanyBean>{
         if(TextUtils.isEmpty(companyBean.getCompanylogo())||companyBean.getCompanylogo().equals("null")){
             holder.imageView.setImageResource(R.drawable.global_img_default);
         }else{
-            Glide.with(context).load(companyBean.getCompanylogo()).error(R.drawable.global_img_default).placeholder(R.drawable.global_img_default).into(holder.imageView);
+            Glide.with(context).load(companyBean.getCompanylogo()).apply(new RequestOptions()
+                    .error(R.drawable.global_img_default).placeholder(R.drawable.global_img_default)).into(holder.imageView);
         }
         holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.getScreenWidth(context) / 5));
         holder.txtname.setText(TextUtils.isEmpty(companyBean.getCompanyname())?"":companyBean.getCompanyname());

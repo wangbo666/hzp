@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.MedicineDetailActivity;
 import com.qgyyzs.globalcosmetics.base.CommonAdapter;
@@ -44,7 +45,8 @@ public class MyCollectAdapter extends CommonAdapter<MyCollectBean.JsonData> {
         if(TextUtils.isEmpty(medicineBean.getEqinfoz().getImage())){
             mItemMedicineLogo.setImageResource(R.mipmap.medicin_defult);
         }else{
-            Glide.with(mContext).load(medicineBean.getEqinfoz().getImage()).error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult).into(mItemMedicineLogo);
+            Glide.with(mContext).load(medicineBean.getEqinfoz().getImage()).apply(new RequestOptions()
+                    .error(R.mipmap.medicin_defult).placeholder(R.mipmap.medicin_defult)).into(mItemMedicineLogo);
         }
 
         viewHolder.getView(R.id.content).setOnClickListener(new View.OnClickListener() {

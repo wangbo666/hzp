@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.trello.rxlifecycle2.components.RxActivity;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.activity.ChatUserdetailActivity;
@@ -16,7 +17,6 @@ import com.qgyyzs.globalcosmetics.base.ViewHolder;
 import com.qgyyzs.globalcosmetics.bean.VisitBean;
 import com.qgyyzs.globalcosmetics.mvp.iface.StringView;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.VisLookOnePresenter;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.TimeUtils;
 
@@ -60,7 +60,8 @@ public class VisitUserListAdapter extends CommonAdapter<VisitBean.JsonData> {
         }
         mItemTimeTv.setText(res);
         if(!TextUtils.isEmpty(biduserBean.getUserInfo().getHeadImg())) {
-            Glide.with(mContext).load(biduserBean.getUserInfo().getHeadImg()).error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult).transform(new GlideCircleTransform(mContext))
+            Glide.with(mContext).load(biduserBean.getUserInfo().getHeadImg()).apply(RequestOptions.circleCropTransform()
+                    .error(R.drawable.icon_user_defult).placeholder(R.drawable.icon_user_defult))
                     .into(mItemUserphotoImg);
         }else{
             mItemUserphotoImg.setImageResource(R.drawable.icon_user_defult);

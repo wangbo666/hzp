@@ -7,10 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.base.MyBaseAdapter;
 import com.qgyyzs.globalcosmetics.bean.ReleaseBean;
-import com.qgyyzs.globalcosmetics.utils.GlideCircleTransform;
 import com.qgyyzs.globalcosmetics.utils.TimeUtils;
 
 import java.util.Date;
@@ -45,13 +45,15 @@ public class ReleaseListAdapter extends MyBaseAdapter {
         if (releaseBean.getType().equals("招商")) {
             try {
                 String str[]=releaseBean.getPhoto().split("\\|");
-                Glide.with(context).load(str[0]).error(R.mipmap.new_pub_sku).placeholder(R.mipmap.new_pub_sku).transform(new GlideCircleTransform(context)).into(myholder.mItemTypeImage);
+                Glide.with(context).load(str[0])
+                        .apply(RequestOptions.circleCropTransform().error(R.mipmap.new_pub_sku).placeholder(R.mipmap.new_pub_sku)).into(myholder.mItemTypeImage);
             }catch (Exception e){
                 myholder.mItemTypeImage.setImageResource(R.mipmap.new_pub_sku);
             }
         }else{
             try {
-                Glide.with(context).load(releaseBean.getPhoto()).error(R.mipmap.new_pub_proxy).placeholder(R.mipmap.new_pub_proxy).transform(new GlideCircleTransform(context)).into(myholder.mItemTypeImage);
+                Glide.with(context).load(releaseBean.getPhoto()).apply(RequestOptions.circleCropTransform()
+                        .error(R.mipmap.new_pub_proxy).placeholder(R.mipmap.new_pub_proxy)).into(myholder.mItemTypeImage);
             }catch (Exception e){
                 myholder.mItemTypeImage.setImageResource(R.mipmap.new_pub_proxy);
             }

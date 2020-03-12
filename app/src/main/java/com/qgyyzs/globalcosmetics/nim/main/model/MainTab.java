@@ -2,7 +2,6 @@ package com.qgyyzs.globalcosmetics.nim.main.model;
 
 
 import com.qgyyzs.globalcosmetics.R;
-import com.qgyyzs.globalcosmetics.nim.main.fragment.ChatRoomListFragment;
 import com.qgyyzs.globalcosmetics.nim.main.fragment.ContactListFragment;
 import com.qgyyzs.globalcosmetics.nim.main.fragment.MainTabFragment;
 import com.qgyyzs.globalcosmetics.nim.main.fragment.SessionListFragment;
@@ -10,8 +9,7 @@ import com.qgyyzs.globalcosmetics.nim.main.reminder.ReminderId;
 
 public enum MainTab {
     RECENT_CONTACTS(0, ReminderId.SESSION, SessionListFragment.class, R.string.main_tab_session, R.layout.session_list),
-    CONTACT(1, ReminderId.CONTACT, ContactListFragment.class, R.string.main_tab_contact, R.layout.contacts_list),
-    CHAT_ROOM(2, ReminderId.INVALID, ChatRoomListFragment.class, R.string.chat_room, R.layout.chat_room_tab);
+    CONTACT(1, ReminderId.CONTACT, ContactListFragment.class, R.string.main_tab_contact, R.layout.contacts_list);
 
     public final int tabIndex;
 

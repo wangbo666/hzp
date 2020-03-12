@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
@@ -325,7 +326,8 @@ public class ProductImgsActivity extends BaseActivity implements View.OnClickLis
         public void setItemData(final int position, Object dataItem, Object viewHolder) {
             final String item= (String) dataItem;
             ViewHolder myholder= (ViewHolder) viewHolder;
-            Glide.with(mContext).load(dataItem).error(R.drawable.global_img_default).placeholder(R.drawable.global_img_default).into(myholder.img);
+            Glide.with(mContext).load(dataItem).apply(new RequestOptions()
+                    .error(R.drawable.global_img_default).placeholder(R.drawable.global_img_default)).into(myholder.img);
             myholder.imgx.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

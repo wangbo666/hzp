@@ -8,8 +8,8 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
+import com.qgyyzs.globalcosmetics.MainActivity;
 import com.qgyyzs.globalcosmetics.R;
-import com.qgyyzs.globalcosmetics.ui.activity.MainActivity;
 
 
 /**

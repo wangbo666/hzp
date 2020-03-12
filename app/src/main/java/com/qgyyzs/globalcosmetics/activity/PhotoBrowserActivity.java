@@ -4,8 +4,11 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.view.View;
@@ -16,6 +19,10 @@ import android.widget.TextView;
 
 import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.bean.WebImgBean;
@@ -83,9 +90,12 @@ public class PhotoBrowserActivity extends Activity implements View.OnClickListen
                     final PhotoView view = new PhotoView(PhotoBrowserActivity.this);
                     view.enable();
                     view.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    Glide.with(PhotoBrowserActivity.this).load(imgList.get(position)).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).fitCenter().crossFade().listener(new RequestListener<String, GlideDrawable>() {
+                    RequestOptions options = new RequestOptions()
+                            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                            .fitCenter();
+                    Glide.with(PhotoBrowserActivity.this).load(imgList.get(position)).apply(options).listener(new RequestListener<Drawable>() {
                         @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             if (position == curPosition) {
                                 hideLoadingAnimation();
                             }
@@ -94,7 +104,7 @@ public class PhotoBrowserActivity extends Activity implements View.OnClickListen
                         }
 
                         @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             occupyOnePosition(position);
                             if (position == curPosition) {
                                 hideLoadingAnimation();
@@ -225,11 +235,9 @@ public class PhotoBrowserActivity extends Activity implements View.OnClickListen
 //        PhotoView photoViewTemp = (PhotoView) containerTemp.getChildAt(0);
         PhotoView photoViewTemp = (PhotoView) curPage;
         if (photoViewTemp != null) {
-            GlideBitmapDrawable glideBitmapDrawable = (GlideBitmapDrawable) photoViewTemp.getDrawable();
-            if (glideBitmapDrawable == null) {
-                return;
-            }
-            Bitmap bitmap = glideBitmapDrawable.getBitmap();
+            photoViewTemp.setDrawingCacheEnabled(true);
+            Bitmap bitmap = photoViewTemp.getDrawingCache();
+
             if (bitmap == null) {
                 return;
             }

@@ -73,13 +73,54 @@ public class LoginPresenter extends IBasePresenter<UserDetialView, RxActivity> {
                     nimID = bean.getJsonData().getNimID();
                 } catch (Exception e) {
                 }
-                LogUtils.e("login start");
-                Login(nimID, nimPW);
-
-                if (getView() != null) {
-                    getView().closeLoading();
-                    getView().showUserResult(bean);
+                if (loginRequest != null) {
+                    loginRequest.abort();
+                    onLoginDone();
                 }
+                LogUtils.e("云信账号：" + nimID + "  云信密码：" + nimPW);
+                loginRequest = NimUIKit.login(new LoginInfo(nimID, nimPW), new RequestCallback<LoginInfo>() {
+                    @Override
+                    public void onSuccess(LoginInfo param) {
+                        LogUtils.e("login success");
+
+                        saveLoginInfo(nimID, nimPW);
+                        onLoginDone();
+                        // Demo缓存当前假登录的账号
+                        DemoCache.setAccount(nimID);
+
+                        // 初始化消息提醒配置
+                        initNotificationConfig();
+
+                        if (getView() != null) {
+                            getView().closeLoading();
+                            getView().showUserResult(bean);
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(int code) {
+                        LogUtils.e("login faild" + code);
+                        onLoginDone();
+                        if (code == 302 || code == 404) {
+                            ToastUtil.showLongMsg("云信账号或密码错误");
+                        } else {
+                            ToastUtil.showLongMsg("登录失败");
+                        }
+                        if (getView() != null) {
+                            getView().closeLoading();
+                        }
+                    }
+
+                    @Override
+                    public void onException(Throwable exception) {
+                        LogUtils.e("login exception");
+                        onLoginDone();
+                        if (getView() != null) {
+                            getView().closeLoading();
+                        }
+                    }
+                });
+//                Login(nimID, nimPW);
             }
         };
         if (null == getView()) return;
