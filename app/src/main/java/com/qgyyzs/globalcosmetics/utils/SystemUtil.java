@@ -18,9 +18,9 @@ public class SystemUtil {
     //获取APP版本号
     public static String getVersion() {
         String st = "1.0";
-        PackageManager pm = MyApplication.getContextObject().getPackageManager();
+        PackageManager pm = MyApplication.getInstance().getContext().getPackageManager();
         try {
-            PackageInfo packinfo = pm.getPackageInfo(MyApplication.getContextObject().getPackageName(), 0);
+            PackageInfo packinfo = pm.getPackageInfo(MyApplication.getInstance().getContext().getPackageName(), 0);
             String version = packinfo.versionName;
             return version;
         } catch (PackageManager.NameNotFoundException e) {

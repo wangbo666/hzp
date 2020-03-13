@@ -168,7 +168,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener, Co
     }
 
     private void getServerVersion() {
-        if (MyApplication.isUpdate == 1) {
+        if (MyApplication.versionBean.IsUpdate == 1) {
             red.setVisibility(View.VISIBLE);
         } else {
             red.setVisibility(View.GONE);

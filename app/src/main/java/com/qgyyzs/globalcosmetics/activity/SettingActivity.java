@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,11 +24,11 @@ import com.qgyyzs.globalcosmetics.R;
 import com.qgyyzs.globalcosmetics.application.MyApplication;
 import com.qgyyzs.globalcosmetics.base.BaseActivity;
 import com.qgyyzs.globalcosmetics.customview.CustomDialog;
+import com.qgyyzs.globalcosmetics.http.CheckUpdateUtil;
 import com.qgyyzs.globalcosmetics.http.retrofit.RetrofitUtils;
 import com.qgyyzs.globalcosmetics.mvp.iface.StringView;
 import com.qgyyzs.globalcosmetics.mvp.ipresenter.LogoutPresenter;
 import com.qgyyzs.globalcosmetics.nim.login.LogoutHelper;
-import com.qgyyzs.globalcosmetics.service.UpdateService;
 import com.qgyyzs.globalcosmetics.utils.DataCleanManager;
 import com.qgyyzs.globalcosmetics.utils.LogUtils;
 import com.qgyyzs.globalcosmetics.utils.StatusBarUtil;
@@ -38,9 +40,8 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import cn.jpush.android.api.JPushInterface;
-import util.UpdateAppUtils;
 
-public class SettingActivity extends BaseActivity implements View.OnClickListener,StringView{
+public class SettingActivity extends BaseActivity implements View.OnClickListener, StringView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.signout_tv)
@@ -67,7 +68,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private static final int REQUEST_WRITE_STORAGE = 111;
     private CustomDialog mDownDialog = null;
-    private LogoutPresenter presenter=new LogoutPresenter(this,this);
+    private LogoutPresenter presenter = new LogoutPresenter(this, this);
 
     @Override
     protected int getLayout() {
@@ -94,21 +95,21 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mClearCache.setOnClickListener(this);
         rlVersion.setOnClickListener(this);
 
-        if (MyApplication.isUpdate==1) {
+        if (MyApplication.versionBean.IsUpdate == 1) {
             imgRed.setVisibility(View.VISIBLE);
             mTvVersion.setText("有新版本了");
-        }else{
+        } else {
             imgRed.setVisibility(View.GONE);
-            mTvVersion.setText("已是最新版本("+ SystemUtil.getVersion()+")");
+            mTvVersion.setText("已是最新版本(" + SystemUtil.getVersion() + ")");
         }
     }
 
     @Override
     public void initView() {
         StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this,toolbar);
+        StatusBarUtil.setPaddingSmart(this, toolbar);
         mSharedPreferences = getSharedPreferences(MyApplication.USERSPINFO, Context.MODE_PRIVATE);
-        userid=mSharedPreferences.getString("userid","");
+        userid = mSharedPreferences.getString("userid", "");
 
         try {
             tvCache.setText(DataCleanManager.getTotalCacheSize(this));
@@ -142,7 +143,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.push_rl:
                 break;
             case R.id.version_rl:
-                if (MyApplication.isUpdate==1) {
+                if (MyApplication.versionBean.IsUpdate == 1) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
                             && ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
@@ -150,21 +151,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                 getString(R.string.permission_download),
                                 1);
                     } else {
-                        UpdateAppUtils.from(this)
-                                .serverVersionCode(SystemUtil.getVersionCode(this) + 1)
-                                .serverVersionName(MyApplication.server_version)
-                                .apkPath(MyApplication.server_apkurl)
-                                .updateInfo(MyApplication.server_apktitle)
-                                .isForce(false)
-                                .update();
+                        new CheckUpdateUtil(false, this).CheckVersion(this, MyApplication.versionBean);
                     }
                 }
                 break;
             case R.id.secret_rl:
-                intent=new Intent();
-                intent.putExtra("title","法律声明");
-                intent.putExtra("url", RetrofitUtils.BASE_API+"home/Declaration");
-                intent.setClass(this,WebBaseActivity.class);
+                intent = new Intent();
+                intent.putExtra("title", "法律声明");
+                intent.putExtra("url", RetrofitUtils.BASE_API + "home/Declaration");
+                intent.setClass(this, WebBaseActivity.class);
                 startActivity(intent);
                 break;
             case R.id.aboutour_rl:
@@ -184,7 +179,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                 try {
                                     tvCache.setText(DataCleanManager
                                             .getTotalCacheSize(SettingActivity.this));
-                                    ToastUtil.showToast(SettingActivity.this,"清除成功",true);
+                                    ToastUtil.showToast(SettingActivity.this, "清除成功", true);
                                 } catch (Exception e) {
                                     // TODO Auto-generated catch block
                                     e.printStackTrace();
@@ -209,23 +204,24 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case REQUEST_WRITE_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //获取到存储权限,进行下载
-                    startDownload();
+//                    startDownload();
                 } else {
                     Toast.makeText(SettingActivity.this, "不授予存储权限将无法进行下载!", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
+
     /**
      * 启动下载
      */
     private void startDownload() {
-        Intent it = new Intent(SettingActivity.this, UpdateService.class);
-        //下载地址
-        it.putExtra("apkUrl", MyApplication.server_apkurl);
-        SettingActivity.this.startService(it);
-        if(MyApplication.ForceUpdate!=1)
-            mDownDialog.dismiss();
+//        Intent it = new Intent(SettingActivity.this, UpdateService.class);
+//        //下载地址
+//        it.putExtra("apkUrl", MyApplication.server_apkurl);
+//        SettingActivity.this.startService(it);
+//        if (MyApplication.ForceUpdate != 1)
+//            mDownDialog.dismiss();
     }
 
     @Override
@@ -257,19 +253,19 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void showStringResult(String result) {
-        if(TextUtils.isEmpty(result))return;
+        if (TextUtils.isEmpty(result)) return;
 
-        MyApplication.islogin=false;
-        MyApplication.TOKEN="";
-        MyApplication.userId="";
-        MyApplication.username="";
+        MyApplication.islogin = false;
+        MyApplication.TOKEN = "";
+        MyApplication.userId = "";
+        MyApplication.username = "";
         mSharedPreferences.edit().clear().commit();
         MainActivity.instance.finish();
         LogoutHelper.logout();
-        JPushInterface.setTags(this,1,null);
-        JPushInterface.setAlias(this,1,null);
+        JPushInterface.setTags(this, 1, null);
+        JPushInterface.setAlias(this, 1, null);
         startActivity(new Intent(SettingActivity.this, LoginActivity.class));
         finish();
-        ToastUtil.showToast(this,result,true);
+        ToastUtil.showToast(this, result, true);
     }
 }

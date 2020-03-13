@@ -33,7 +33,7 @@ public class UpdateService extends Service {
     /**系统下载器分配的唯一下载任务id，可以通过这个id查询或者处理下载任务*/
     private long enqueue;
     /**TODO下载地址 需要自己修改,这里随便找了一个*/
-    private String downloadUrl= MyApplication.server_apkurl;
+    private String downloadUrl= MyApplication.versionBean.httppath;
 
     @Nullable
     @Override

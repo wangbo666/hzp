@@ -1,5 +1,6 @@
 package com.qgyyzs.globalcosmetics.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -25,6 +26,11 @@ public class SplashActivity extends BaseActivity implements StringView{
     private String type;
     private String proid,muser,name,image,company;
     private String dailiid,userid,pname;
+
+    private String needPermission[] = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected int getLayout() {
@@ -75,6 +81,21 @@ public class SplashActivity extends BaseActivity implements StringView{
         provincePresenter=new ProvincePresenter(provinceView,this);
         channelPresenter=new ChannelPresenter(channelView,this);
 
+//        RxPermissions permissions = new RxPermissions(this);
+//        permissions.request(needPermission)
+//                .subscribe(b -> {
+//                    if (b) {
+//                        MyApplication.getInstance().getHandler().postDelayed(() -> {
+//                            presenter.getChannel();
+//                            presenter.getProvince();
+//                            presenter.getType();
+//                            presenter.getKeshi();
+//                        }, 1000);
+//                    } else {
+//                        ToastUtil.showLongMsg("请在设置-应用-环球医药网-权限管理中开启存储、电话、相机权限，以正常使用环球医药网");
+//                        finish();
+//                    }
+//                });
         new Thread(new Runnable() {
             @Override
             public void run() {

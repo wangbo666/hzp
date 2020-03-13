@@ -748,7 +748,7 @@ public class SessionFragment extends TFragment implements View.OnClickListener {
             case R.id.rl_laifang:
                 startActivity(new Intent(getActivity(), ResentVisitActivity.class));
                 break;
-            case R.id.rl_news:
+            case R.id.rl_team:
                 startActivity(new Intent(getActivity(), MedicalNewsActivity.class));
                 break;
             case R.id.rl_mess:

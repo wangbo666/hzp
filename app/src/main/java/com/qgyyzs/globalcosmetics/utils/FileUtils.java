@@ -43,6 +43,31 @@ public class FileUtils {
         return file;
     }
 
+    public static boolean deleteFile(File rootFile, boolean showMsg) {
+        boolean result = false;
+        if (rootFile.exists()) {
+            if (rootFile.isDirectory()) {
+                File[] fileList = rootFile.listFiles();
+                if (fileList != null) {
+                    for (int i = 0; i < fileList.length; i++) {
+                        deleteFile(fileList[i], false);
+                    }
+                }
+            }
+            result = rootFile.delete();
+            if (showMsg) {
+                if (result) {
+                    ToastUtil.showShortMsg("清除成功");
+                } else {
+                    ToastUtil.showShortMsg("清除失败");
+                }
+            }
+            return result;
+        }
+        ToastUtil.showShortMsg("文件不存在");
+        return result;
+    }
+
     /**
      * 压缩图片（质量压缩）
      *

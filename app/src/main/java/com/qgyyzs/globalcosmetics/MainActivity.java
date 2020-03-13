@@ -10,9 +10,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.SystemClock;
+
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,6 +36,9 @@ import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.qgyyzs.globalcosmetics.activity.FreshActivity;
+import com.qgyyzs.globalcosmetics.bean.VersionBean;
+import com.qgyyzs.globalcosmetics.http.CheckUpdateUtil;
+import com.qgyyzs.globalcosmetics.mvp.iface.VersionView;
 import com.qgyyzs.globalcosmetics.nim.login.LogoutHelper;
 import com.qgyyzs.globalcosmetics.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -77,12 +82,11 @@ import org.json.JSONObject;
 import java.util.List;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
-import util.UpdateAppUtils;
 
 import static com.qgyyzs.globalcosmetics.application.MyApplication.USERSPINFO;
 
-public class MainActivity extends BaseFragmentActivity implements View.OnClickListener,StringView {
-    private VersionPresenter versionPresenter=new VersionPresenter(this, this);
+public class MainActivity extends BaseFragmentActivity implements View.OnClickListener, VersionView {
+    private VersionPresenter versionPresenter = new VersionPresenter(this, this);
     private IsFabuPresenter fabuPresenter;
     private BindPhoneCodePresenter sendCodePresenter;
     private BindPhonePresenter bindPresenter;
@@ -110,7 +114,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     private String mobile;
     private Dialog mDialog;
-    private Button mBtnCancel,mBtnBind;
+    private Button mBtnCancel, mBtnBind;
     private ClearEditText mPhoneEdit;
     private EditText mCodeEdit;
     private TextView mGetcodeText;
@@ -119,7 +123,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private int flag;
 
     private String type;
-    private String proid,muser,name,image,company;
+    private String proid, muser, name, image, company;
 
     public static boolean isForeground = false;
 
@@ -133,7 +137,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     protected void initView() {
         instance = this;
         StatusBarUtil.immersive(this);
-        mSharedPreferences=getSharedPreferences(USERSPINFO, Context.MODE_PRIVATE);
+        mSharedPreferences = getSharedPreferences(USERSPINFO, Context.MODE_PRIVATE);
         mobile = getIntent().getStringExtra("mobile");
         mRedImg = findViewById(R.id.red_img);
         mHomeTextView = findViewById(R.id.tab_home);
@@ -148,11 +152,11 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mDialog.setContentView(R.layout.dialog_bindmobile);
         mDialog.setCancelable(false);
         Window dialogWindow = mDialog.getWindow();
-        mBtnCancel= (Button) dialogWindow.findViewById(R.id.cancel_btn);
-        mBtnBind= (Button) dialogWindow.findViewById(R.id.bind_btn);
-        mPhoneEdit= (ClearEditText) dialogWindow.findViewById(R.id.phone_edit);
-        mCodeEdit= (EditText) dialogWindow.findViewById(R.id.code_edit);
-        mGetcodeText= (TextView) dialogWindow.findViewById(R.id.getcode_text);
+        mBtnCancel = (Button) dialogWindow.findViewById(R.id.cancel_btn);
+        mBtnBind = (Button) dialogWindow.findViewById(R.id.bind_btn);
+        mPhoneEdit = (ClearEditText) dialogWindow.findViewById(R.id.phone_edit);
+        mCodeEdit = (EditText) dialogWindow.findViewById(R.id.code_edit);
+        mGetcodeText = (TextView) dialogWindow.findViewById(R.id.getcode_text);
         WindowManager.LayoutParams lp1 = dialogWindow.getAttributes();// 创建布局
         lp1.width = ScreenUtils.getScreenWidth(this);
         lp1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -162,8 +166,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mBtnBind.setOnClickListener(this);
         mGetcodeText.setOnClickListener(this);
 
-        LogUtils.e("mobile"+mobile);
-        if(!TextUtils.isEmpty(getIntent().getStringExtra("bindphone"))) {
+        LogUtils.e("mobile" + mobile);
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("bindphone"))) {
             if (TextUtils.isEmpty(mobile)) mDialog.show();
         }
 
@@ -225,12 +229,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                                 return;
                             } else {
-                                if(mSharedPreferences.getBoolean("IsPrimary",false)) {
+                                if (mSharedPreferences.getBoolean("IsPrimary", false)) {
                                     if (!NoFastClickUtils.isFastClick()) {
                                         fabuPresenter.isFabu();
                                     }
-                                }else{
-                                    ToastUtil.showToast(MainActivity.this,"请使用主账号发布产品",true);
+                                } else {
+                                    ToastUtil.showToast(MainActivity.this, "请使用主账号发布产品", true);
                                 }
                             }
                         }
@@ -258,14 +262,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                             startActivity(new Intent(MainActivity.this, LoginActivity.class));
                             return;
                         } else {
-                            if(mSharedPreferences.getBoolean("IsPrimary",false)) {
-                                if(flag==1) {
+                            if (mSharedPreferences.getBoolean("IsPrimary", false)) {
+                                if (flag == 1) {
                                     startActivity(new Intent(MainActivity.this, FreshActivity.class));
-                                }else {
+                                } else {
                                     freshProductPresenter.getFresh();
                                 }
-                            }else{
-                                ToastUtil.showToast(MainActivity.this,"请使用主账号刷新产品",true);
+                            } else {
+                                ToastUtil.showToast(MainActivity.this, "请使用主账号刷新产品", true);
                             }
                         }
                     }
@@ -289,15 +293,15 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     //初始化数据
     @Override
     protected void initData() {
-        freshProductPresenter=new FreshProductPresenter(freshView,this);
-        Intent intent=getIntent();
-        type=intent.getStringExtra("type");
-        proid=intent.getStringExtra("proid");
-        muser=intent.getStringExtra("muser");
-        name=intent.getStringExtra("name");
-        image=intent.getStringExtra("image");
-        company=intent.getStringExtra("company");
-        if(!TextUtils.isEmpty(type)) {
+        freshProductPresenter = new FreshProductPresenter(freshView, this);
+        Intent intent = getIntent();
+        type = intent.getStringExtra("type");
+        proid = intent.getStringExtra("proid");
+        muser = intent.getStringExtra("muser");
+        name = intent.getStringExtra("name");
+        image = intent.getStringExtra("image");
+        company = intent.getStringExtra("company");
+        if (!TextUtils.isEmpty(type)) {
             Intent intent1;
             if (!MyApplication.islogin) {
                 startActivity(new Intent(this, LoginActivity.class));
@@ -309,37 +313,37 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     intent1.putExtra("name", name);
                     intent1.putExtra("image", image);
                     intent1.putExtra("muser", muser);
-                    intent1.putExtra("company",company);
+                    intent1.putExtra("company", company);
                     startActivity(intent1);
-                }else if(type.equals("2")){
+                } else if (type.equals("2")) {
                     intent1 = new Intent(this, UserDetailActivity.class);
-                    intent1.putExtra("id",Integer.parseInt(intent.getStringExtra("dlid")));
-                    intent1.putExtra("touserid",intent.getStringExtra("userid"));
+                    intent1.putExtra("id", Integer.parseInt(intent.getStringExtra("dlid")));
+                    intent1.putExtra("touserid", intent.getStringExtra("userid"));
                     intent1.putExtra("nickname", intent.getStringExtra("pname"));
                     intent1.putExtra("muser", intent.getStringExtra("muser"));
                     startActivity(intent1);
-                }else if(type.equals("3")){
+                } else if (type.equals("3")) {
                     intent1 = new Intent(this, UserDetailActivity.class);
                     intent1.putExtra("info", 10);//代理商库
                     intent1.putExtra("touserid", intent.getStringExtra("userid"));
                     intent1.putExtra("nickname", intent.getStringExtra("rname"));
                     startActivity(intent1);
-                }else if(type.equals("4")){
+                } else if (type.equals("4")) {
                     intent1 = new Intent(this, WebBaseActivity.class);
                     intent1.putExtra("title", intent.getStringExtra("title"));
-                    intent1.putExtra("type","medical");
+                    intent1.putExtra("type", "medical");
                     intent1.putExtra("url", RetrofitUtils.BASE_API + "artcle/artcleinfo?Type=" + type + "&id=" + intent.getStringExtra("id"));
                     startActivity(intent1);
-                }else if(type.equals("5")){
+                } else if (type.equals("5")) {
                     intent1 = new Intent(this, WebBaseActivity.class);
                     intent1.putExtra("title", intent.getStringExtra("title"));
-                    intent1.putExtra("type","bid");
+                    intent1.putExtra("type", "bid");
                     intent1.putExtra("url", RetrofitUtils.BASE_API + "product/zhongbiaoinfo?id=" + intent.getStringExtra("id"));
                     startActivity(intent1);
-                }else if(type.equals("6")){
+                } else if (type.equals("6")) {
                     intent1 = new Intent(this, JobDetailActivity.class);
                     intent1.putExtra("id", Integer.parseInt(intent.getStringExtra("id")));
-                    intent1.putExtra("company",intent.getStringExtra("company"));
+                    intent1.putExtra("company", intent.getStringExtra("company"));
                     intent1.putExtra("puserid", intent.getStringExtra("userid"));
                     intent1.putExtra("title", intent.getStringExtra("jobname"));
                     startActivity(intent1);
@@ -361,7 +365,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.setCatchUncaughtExceptions(true);
 
-        if(MyApplication.islogin) {
+        if (MyApplication.islogin) {
             NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, true);
         }
 
@@ -369,17 +373,17 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
         fabuPresenter = new IsFabuPresenter(fabuView, this);
 
-        sendCodePresenter=new BindPhoneCodePresenter(codeView,this);
-        bindPresenter=new BindPhonePresenter(bindView,this);
+        sendCodePresenter = new BindPhoneCodePresenter(codeView, this);
+        bindPresenter = new BindPhonePresenter(bindView, this);
     }
 
-    private StringView bindView=new StringView() {
+    private StringView bindView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
-            ToastUtil.showToast(MainActivity.this,"手机号绑定成功",true);
-            if(mDialog!=null)
+            ToastUtil.showToast(MainActivity.this, "手机号绑定成功", true);
+            if (mDialog != null)
                 mDialog.dismiss();
         }
 
@@ -395,11 +399,11 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
         @Override
         public String getJsonString() {
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("id", MyApplication.userId);
-                jsonObject.put("mobile",mPhoneEdit.getText().toString().trim());
-                jsonObject.put("yzm",mCodeEdit.getText().toString().trim());
+                jsonObject.put("mobile", mPhoneEdit.getText().toString().trim());
+                jsonObject.put("yzm", mCodeEdit.getText().toString().trim());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -512,7 +516,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 transaction.commit();
                 break;
             case R.id.cancel_btn:
-                if(mDialog!=null)
+                if (mDialog != null)
                     mDialog.dismiss();
                 break;
             case R.id.getcode_text:
@@ -534,11 +538,11 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     @Override
     protected void onResume() {
         super.onResume();
-        flag=mSharedPreferences.getInt("flag",0);
-        isForeground=true;
+        flag = mSharedPreferences.getInt("flag", 0);
+        isForeground = true;
         MobclickAgent.onResume(this);
 
-        if(MyApplication.islogin) {
+        if (MyApplication.islogin) {
             NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, true);
             registerSystemMessageObservers(true);
 
@@ -564,8 +568,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 LogoutHelper.logout();
                 MyApplication.islogin = false;
                 MyApplication.TOKEN = "";
-                MyApplication.userId="";
-                MyApplication.username="";
+                MyApplication.userId = "";
+                MyApplication.username = "";
                 MyApplication.mSharedPreferences.edit().clear().commit();
                 LoginActivity.start(MainActivity.this, true);
                 finish();
@@ -596,7 +600,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
 
 
-    private StringView fabuView=new StringView() {
+    private StringView fabuView = new StringView() {
         @Override
         public void showStringResult(String result) {
             if (TextUtils.isEmpty(result)) {
@@ -635,6 +639,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
         }
     };
+
     /**
      * 注册/注销系统消息未读数变化
      *
@@ -709,12 +714,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         return flog;
     }
 
-    private StringView codeView=new StringView() {
+    private StringView codeView = new StringView() {
         @Override
         public void showStringResult(String result) {
-            if(TextUtils.isEmpty(result))return;
+            if (TextUtils.isEmpty(result)) return;
 
-            ToastUtil.showToast(MainActivity.this,"验证码发送成功",true);
+            ToastUtil.showToast(MainActivity.this, "验证码发送成功", true);
             codeString = result;
             new MyCountTimer(mGetcodeText).start();
         }
@@ -731,9 +736,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
         @Override
         public String getJsonString() {
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("mobile",mPhoneEdit.getText().toString().trim());
+                jsonObject.put("mobile", mPhoneEdit.getText().toString().trim());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -752,6 +757,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     public static final String KEY_TITLE = "title";
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_EXTRAS = "extras";
+
     public void registerMessageReceiver() {
         mMessageReceiver = new MessageReceiver();
         IntentFilter filter = new IntentFilter();
@@ -772,7 +778,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     @Override
     public String getJsonString() {
-        JSONObject  jsonObject=new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("ver", SystemUtil.getVersion());
         } catch (JSONException e) {
@@ -787,10 +793,10 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
 
     @Override
-    public void showStringResult(String result) {
-        if(TextUtils.isEmpty(result))return;
+    public void showVersion(VersionBean bean) {
+        if (bean == null) return;
 
-        if (MyApplication.isUpdate==1) {
+        if (bean.IsUpdate == 1) {
             mRedImg.setVisibility(View.VISIBLE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
                     && ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -798,16 +804,10 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 requestPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         getString(R.string.permission_download),
                         1);
-            }else {
-                UpdateAppUtils.from(this)
-                        .serverVersionCode(SystemUtil.getVersionCode(this)+1)
-                        .serverVersionName(MyApplication.server_version)
-                        .apkPath(MyApplication.server_apkurl)
-                        .updateInfo(MyApplication.server_apktitle)
-                        .isForce(MyApplication.ForceUpdate==1?true:false)
-                        .update();
+            } else {
+                new CheckUpdateUtil(false, this).CheckVersion(this, bean);
             }
-        }else {
+        } else {
             mRedImg.setVisibility(View.GONE);
         }
     }
@@ -825,14 +825,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     if (!ExampleUtil.isEmpty(extras)) {
                         showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
                     }
-                    LogUtils.e("push="+showMsg.toString());
+                    LogUtils.e("push=" + showMsg.toString());
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }
 
-    private StringView freshView=new StringView() {
+    private StringView freshView = new StringView() {
         @Override
         public void showStringResult(String result) {
             if (!TextUtils.isEmpty(result)) {
@@ -860,7 +860,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
         @Override
         public String getJsonString() {
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("userid", MyApplication.userId);
             } catch (JSONException e) {

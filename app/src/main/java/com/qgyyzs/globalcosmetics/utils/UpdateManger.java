@@ -31,7 +31,7 @@ import java.net.URL;
 public class UpdateManger {
     private Context mContext; //上下文
 
-    private String apkUrl = MyApplication.server_apkurl; //apk下载地址
+    private String apkUrl = MyApplication.versionBean.httppath; //apk下载地址
     private static final String savePath = "/sdcard/updateAPK/"; //apk保存到SD卡的路径
     private static final String saveFileName = savePath + "yqyyw.apk"; //完整路径名
 
@@ -42,8 +42,8 @@ public class UpdateManger {
     private int progress; //下载进度
     private boolean cancelFlag = false; //取消下载标志位
 
-    private String serverVersion = MyApplication.server_version; //从服务器获取的版本号
-    private String updateDescription = MyApplication.server_apktitle; //更新内容描述信息
+    private String serverVersion = MyApplication.versionBean.version; //从服务器获取的版本号
+    private String updateDescription = MyApplication.versionBean.verdesc; //更新内容描述信息
     private int forceUpdate; //是否强制更新
 
     private AlertDialog alertDialog1, alertDialog2; //表示提示对话框、进度条对话框
@@ -57,7 +57,7 @@ public class UpdateManger {
     /** 显示更新对话框 */
     public void showNoticeDialog() {
         //如果版本最新，则不需要更新
-        if (MyApplication.isUpdate==0)
+        if (MyApplication.versionBean.IsUpdate==0)
             return;
         AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
         dialog.setTitle("发现新版本 ：" + serverVersion);

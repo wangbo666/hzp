@@ -18,6 +18,7 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.mixpush.NIMPushClient;
 import com.netease.nimlib.sdk.util.NIMUtil;
+import com.qgyyzs.globalcosmetics.bean.VersionBean;
 import com.qgyyzs.globalcosmetics.nim.NIMInitManager;
 import com.qgyyzs.globalcosmetics.nim.event.DemoOnlineStateContentProvider;
 import com.qgyyzs.globalcosmetics.nim.mixpush.DemoMixPushMessageHandler;
@@ -52,10 +53,7 @@ public class MyApplication extends MultiDexApplication implements IApplication {
     private static MyApplication instance;
     public static Handler handler = new Handler();
     private static Context context;
-    public static String server_version;//服务器版本号
-    public static String server_apkurl = "";//服务器
-    public static String server_apktitle = "";//服务器
-    public static int ForceUpdate, isUpdate;
+    public static VersionBean versionBean;
 
     public static String TOKEN = "";
     public static boolean islogin = false;
@@ -152,11 +150,6 @@ public class MyApplication extends MultiDexApplication implements IApplication {
 //        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         PlatformConfig.setQQZone("101455515", "e90d31b82ee1d2474b8d522b865ae20d");
         Config.DEBUG = true;
-    }
-
-    //返回
-    public static Context getContextObject() {
-        return context;
     }
 
     @Override

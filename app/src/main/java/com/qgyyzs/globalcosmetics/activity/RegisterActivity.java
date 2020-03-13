@@ -248,8 +248,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         String alias="qgyyzs_"+ bean.getJsonData().getAccountName();
 
-        JPushInterface.setTags(MyApplication.getContextObject(), 1, tagSet);
-        JPushInterface.setAlias(MyApplication.getContextObject(), 1, alias);
+        JPushInterface.setTags(MyApplication.getInstance().getContext(), 1, tagSet);
+        JPushInterface.setAlias(MyApplication.getInstance().getContext(), 1, alias);
     }
 
     @Override

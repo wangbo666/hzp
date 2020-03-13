@@ -67,7 +67,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:src="@drawable/icon_delete_normal"/>
+            android:src="@drawable/icon_delete"/>
     </RelativeLayout>
 
 </LinearLayout>

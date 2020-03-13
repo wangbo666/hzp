@@ -28,11 +28,11 @@ public class ServerResultFunction implements Function<HttpResponse, Object> {
             MyApplication.mSharedPreferences.edit().clear();
             MyApplication.islogin = false;
             MyApplication.TOKEN = "";
-            ToastUtil.showToast(MyApplication.getContextObject(), "登录过期，请重新登陆", true);
-            LoginActivity.start(MyApplication.getContextObject());
+            ToastUtil.showToast(MyApplication.getInstance().getContext(), "登录过期，请重新登陆", true);
+            LoginActivity.start(MyApplication.getInstance().getContext());
         }
         if (!response.isSuccess()&&!response.isTokenError()) {
-            ToastUtil.showToast(MyApplication.getContextObject(), response.getMsg(), true);
+            ToastUtil.showToast(MyApplication.getInstance().getContext(), response.getMsg(), true);
             throw new ServerException(response.getResult(), response.getMsg());
         }
         return response.toString();
